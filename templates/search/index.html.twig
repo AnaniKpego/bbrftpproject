@@ -1,0 +1,84 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Recherche</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-success btn-search">Je réserve !</button>
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script>
+        const btnSubmit = document.querySelector(".btn-search");
+        const q = document.querySelector("#search_data_q");
+        const minWeekPrice = document.querySelector("#search_data_minWeekPrice");
+        const maxWeekPrice = document.querySelector("#search_data_maxWeekPrice");
+        const minWeekendPrice = document.querySelector("#search_data_minWeekendPrice");
+        const maxWeekendPrice = document.querySelector("#search_data_maxWeekendPrice");
+        const guestPlaceCount = document.querySelector("#search_data_guestPlaceCount");
+        const equipments = document.querySelector("#search_data_equipments");
+        const categories = document.querySelector("#search_data_categories");
+
+        btnSubmit.addEventListener("click", e => {
+            e.preventDefault();
+            // var data = {
+            //     'q': q.value,
+            //         'minWeekPrice': minWeekPrice.value,
+            //         'maxWeekPrice': maxWeekPrice.value,
+            //         'minWeekendPrice': minWeekendPrice.value,
+            //         'maxWeekendPrice': maxWeekendPrice.value,
+            //         'guestPlaceCount': guestPlaceCount.value,
+            //         'equipments': equipments.selectedOptions.length === 0 ? [-1]: Array.from(equipments.selectedOptions || {}).map(op => parseInt(op.value)),
+            //         'categories': categories.selectedOptions.length === 0 ? [-1]: Array.from(categories.selectedOptions || {}).map(op => parseInt(op.value))
+            // };
+            //
+            // console.log(data);
+            $.ajax({
+                url: '/search',
+                method: 'post',
+                data: {
+                    'q': q.value,
+                    'minWeekPrice': minWeekPrice.value,
+                    'maxWeekPrice': maxWeekPrice.value,
+                    'minWeekendPrice': minWeekendPrice.value,
+                    'maxWeekendPrice': maxWeekendPrice.value,
+                    'guestPlaceCount': guestPlaceCount.value,
+                    'equipments': equipments.selectedOptions.length === 0 ? [-1] : Array.from(equipments.selectedOptions || {}).map(op => parseInt(op.value)),
+                    'categories': categories.selectedOptions.length === 0 ? [-1] : Array.from(categories.selectedOptions || {}).map(op => parseInt(op.value))
+                },
+                success: function (data) {
+                    const rooms = JSON.parse(data);
+
+                    console.log(rooms);
+                }
+            });
+        }, false);
+
+    </script>
+
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>#}
+
+    {#    <script>#}
+    {#        $(document).ready(function () {#}
+    {#            $('#search_data_bookingStartedAt, #search_data_bookingEndedAt').datepicker({#}
+    {#                format: 'dd/mm/yyyy',#}
+    {#                startDate: new Date()#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
+
+{% endblock %}

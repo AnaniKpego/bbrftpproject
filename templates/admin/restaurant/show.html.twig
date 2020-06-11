@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant{% endblock %}
+
+{% block body %}
+    <h1>Restaurant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ restaurant.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ restaurant.title }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ restaurant.price }}</td>
+            </tr>
+            <tr>
+                <th>Subtitle</th>
+                <td>{{ restaurant.subtitle }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ restaurant.description }}</td>
+            </tr>
+            <tr>
+                <th>Filename</th>
+                <td>{{ restaurant.filename }}</td>
+            </tr>
+            <tr>
+                <th>CreateAt</th>
+                <td>{{ restaurant.createAt ? restaurant.createAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ restaurant.updatedAt ? restaurant.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bbr_restaurant_index') }}">back to list</a>
+
+    <a href="{{ path('app_bbr_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+
+    {{ include('admin/restaurant/_delete_form.html.twig') }}
+{% endblock %}

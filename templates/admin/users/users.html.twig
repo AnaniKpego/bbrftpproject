@@ -1,0 +1,5 @@
+{% for user in users %}
+    <div>
+        {{ user.email }} <a href="{{ path('app_bbr_admin_user_update', {'user':user.id})}}">Modifiez</a>
+    </div>
+{% endfor %}

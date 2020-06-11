@@ -1,0 +1,58 @@
+<header class="horizontal-header sticky-header" data-menutoggle="991">
+    <div class="container">
+        <!-- BRAND -->
+        <div class="brand">
+            <div class="logo">
+                <a href="/">
+                    <img src="/assets/images/logobbr.png" class="img-fluid" alt="BBr">
+                </a>
+            </div>
+        </div>
+        <!-- MOBILE MENU BUTTON -->
+        <div id="toggle-menu-button" class="toggle-menu-button">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+        <!-- MAIN MENU -->
+        <nav id="main-menu" class="main-menu">
+            <ul class="menu">
+                <li class="menu-item dropdown {% if current_menu is defined and current_menu == 'home' %}active {% endif %} ">
+                    <a href="/">ACCUEIL</a>
+                </li>
+                <li class="menu-item dropdown {% if current_menu is defined and current_menu == 'rooms' %}active {% endif %}">
+                    <a href="{{ path('app_bbr_rooms') }}">HEBERGEMENTS</a>
+                    <ul class="submenu">
+                        <li class="menu-item dropdown">
+                            <a href="{{ path('app_bbr_rooms') }}">CHAMBRE SUPERIEURE</a>
+                        </li>
+                        <li class="menu-item dropdown">
+                            <a href="{{ path('app_bbr_rooms') }}">SUITE COTE JARDIN</a>
+                        </li>
+                        <li class="menu-item dropdown">
+                            <a href="{{ path('app_bbr_rooms') }}">SUITE COTE LAGUNE</a>
+                        </li>
+                        <li class="menu-item dropdown">
+                            <a href="{{ path('app_bbr_restaurants') }}">RESTAURANTION</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item dropdown {% if current_menu is defined and current_menu == 'events' %}active {% endif %}">
+                    <a href="{{ path('app_bbr_event_index') }}">EVENT</a>
+                </li>
+
+                <li class="menu-item dropdown {% if current_menu is defined and current_menu == 'services' %}active {% endif %}">
+                    <a href="{{ path('app_bbr_service_index') }}">SERVICE SUR DEMANDE</a>
+                </li>
+                <li class="menu-item {% if current_menu is defined and current_menu == 'contact' %}active {% endif %}">
+                    <a href="{{ path('app_bbr_contact_new') }}">NOUS CONTACTER</a>
+                </li>
+                <li class="menu-item menu-btn {% if current_menu is defined and current_menu == 'rooms' %}active {% endif %}">
+                    <a href="{{ path('app_bbr_rooms') }}" class="btn">
+                        <i class="fa fa-calendar"></i>
+                        RESERVATION</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

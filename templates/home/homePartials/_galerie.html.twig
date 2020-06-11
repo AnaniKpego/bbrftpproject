@@ -1,0 +1,22 @@
+<section class="gallery">
+    <div class="container">
+        <div class="section-title">
+            <p class="section-subtitle"><h2>BBr GALLERIE</h2></p>
+            {#<a href="gallery.html" class="view-all">VOIR PLUS</a>#}
+        </div>
+        <div class="gallery-owl owl-carousel image-gallery">
+            <!-- ITEM -->
+            {% for image in images %}
+            <div class="gallery-item">
+                <figure class="gradient-overlay image-icon">
+                    <a href="{{ vich_uploader_asset(image, 'imageFile') }}">
+                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="Image" class="gallery-image">
+                    </a>
+                    <figcaption>{{ image.title }}</figcaption>
+                </figure>
+            </div>
+            <!-- ITEM -->
+            {% endfor %}
+        </div>
+    </div>
+</section>

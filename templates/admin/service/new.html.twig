@@ -1,0 +1,21 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Nouveau service{% endblock %}
+
+{% block body %}
+    <div class="container col-md-10 justify-content-center align-items-center">
+
+        <div class="card shadow mb-4">
+
+            <div class="card-body">
+
+                <h1 class="text-center">Enregistrer un service</h1>
+                <div class="justify-content-center">
+                    {{ include('admin/service/_form.html.twig') }}
+
+                    <a href="{{ path('app_bbr_admin_service_index') }}" class="float-lg-right btn-sm btn-primary">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

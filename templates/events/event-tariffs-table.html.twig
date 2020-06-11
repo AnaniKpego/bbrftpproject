@@ -1,0 +1,26 @@
+
+<table class="mt20 mb20">
+    <thead>
+    <tr>
+        <td>Type tarif</td>
+        <td>Prix</td>
+        <td>Résumé</td>
+        <td>Contenu</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for tariff in event.tariffs %}
+        <tr>
+            <td>{{tariff.title  }}</td>
+            <td>{{ tariff.getFormatPrice }}</td>
+            <td>{{ tariff.typeOfTariff.title }}</td>
+            <td>{{tariff.detail|raw|raw  }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">Aucun tarif associé à cet évènement, veuillez contacter le service client</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>

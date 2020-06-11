@@ -1,0 +1,57 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Administration des articles{% endblock %}
+
+{% block body %}
+<div class="container col-md-12 justify-content-center align-items-center">
+
+    <h4 class="text-center">Message envoyé par {{ contact.name }} </h4>
+    <div class="justify-content-center">
+        <div class="card shadow mb-4">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Envoyé le</th>
+                        <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Envoyé par</th>
+                        <td>{{ contact.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Téléphone</th>
+                        <td class="d-inline-block mr-5">{{ contact.phone }}
+                            <a class="btn-success btn btn-sm float-right" href="tel:+225{{ contact.phone }}">
+                            <span class="m-3"> <i class="fa fa-phone"></i>Appeler </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td class="d-inline-block mr-5">{{ contact.email }}
+                            <a class="btn-success btn btn-sm float-right" href="mailto:{{ contact.email }}">
+                                <span class="m-3"> <i class="fa fa-envelope"></i>Envoyer un mail </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Sujet</th>
+                        <td>{{ contact.subject }}</td>
+                    </tr>
+                    <tr>
+                        <th>Message</th>
+                        <td>{{ contact.message|raw|raw}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex mb-4 ml-2">
+                <a class="btn-sm btn btn-primary mr-5" href="{{ path('app_bbr_admin_contacts') }}">Retour à la liste</a>
+
+                {{ include('admin/contact/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+controllers:
+    resource: ../../src/Controller/
+    type: annotation
+    #prefix:   /
+    name_prefix: app_bbr_
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation

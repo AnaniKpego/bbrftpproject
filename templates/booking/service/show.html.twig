@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Réservation effectuée avec succes{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mt-5 mb-5 justify-content-center">
+            <div class="card">
+                <div class="card-head">
+                    <h2 class="card-title text-center pt-3">
+                        Boulaybeachresort service sur demande  <em>" {{ service.title }} "</em>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p class="alert alert-success ">
+                         Votre demande du service  <em>" {{ service.title }} "</em> a été effectuée avec succès. Verifiez votre boite
+                            mail pour imprimer votre réçu de réservation
+                            Merci.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+<!-- Modal -->
+<div class="modal fade" id="serviceModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-gradient-light">
+            {{ form_start(form) }}
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-sm-12 mb-3 mb-sm-0">
+                        {{ form_label(form.bookingAt) }}
+                        {{ form_errors(form.bookingAt) }}
+                        {{ form_widget(form.bookingAt) }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {{ form_rest(form) }}
+                <button type="submit"  class="btn btn-primary">Valider la demande</button>
+                <button type="button" class="btn btn-secondary " data-dismiss="modal">Annuler</button>
+
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

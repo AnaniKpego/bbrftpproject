@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Réserver la {{ service.title }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container m-5">
+        <h3 class="text-center m-3">Service sur demande : <em>{{ service.title }}</em></h3>
+
+
+        <div class="service-list-item">
+            <div class="row">
+                <div class="col-lg-4">
+                    <figure class="gradient-overlay-hover link-icon">
+                        <a href="{{ path('app_bbr_service_show',{'id' : service.id}) }}" class="d-inline-block w-100">
+                            <img src="{{ vich_uploader_asset(service, 'imageFile') }}"
+                                 class="service-image img-fluid" alt="Image">
+                        </a>
+                    </figure>
+                </div>
+                <div class="col-lg-8">
+                    {#<div class="service-info">#}
+                        {#<h3 class="service-title">#}
+                            {#<a href="#">{{ service.title }}</a>#}
+                        {#</h3>#}
+                    {#</div>#}
+                    {% include('services/services-tariffs-table.html.twig') %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="service-info">
+                    <p>{{ service.subtitle|raw|raw }}...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container col-md-10 justify-content-center align-items-center">
+
+            <div class="card shadow mb-4">
+
+                <div class="card-body">
+
+                    <h1 class="text-center">Bbr Service sur demande</h1>
+                    <div class="justify-content-center">
+                        {{ form_start(form) }}
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                {{ form_label(form.bookingAt) }}
+                                {{ form_errors(form.bookingAt) }}
+                                {{ form_widget(form.bookingAt) }}
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                {{ form_label(form.endedAt) }}
+                                {{ form_errors(form.endedAt) }}
+                                {{ form_widget(form.endedAt) }}
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+                        <button type="submit" class="btn btn-success">Je réserve !</button>
+
+                        {{ form_end(form) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#service_booking_bookingAt, #service_booking_endedAt').datepicker({
+                format: 'dd/mm/yyyy'
+            });
+
+        });
+
+
+    </script>
+
+{% endblock %}

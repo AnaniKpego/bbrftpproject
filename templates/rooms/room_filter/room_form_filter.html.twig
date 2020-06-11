@@ -1,0 +1,75 @@
+<!-- ========== BOOKING FORM ========== -->
+<div class="horizontal-booking-form booking-full-width ">
+    <div class="container">
+        <div class="inner box-shadow-007 justify-content-center">
+            <!-- ========== BOOKING NOTIFICATION ========== -->
+            <div id="booking-notification" class="notification"></div>
+            {{ form_start(form) }}
+            <form id="booking-form ">
+                <!-- NAME -->
+                <div class="row justify-content-center mb-3">
+                    <div class="col-md-4 mt-3 week-price-container">
+                        {#<h5>Intervalle de prix en semaine</h5>#}
+                        <div id="week-price" data-min="{{ minMax.minWeekPrice }}"
+                             data-max="{{ minMax.maxWeekPrice }}">
+                        </div>
+                        <div class="min-max-container">
+                            <!-- MIN WEEK PRICE -->
+                            {{ form_row(form.minWeekPrice) }}
+                            <!-- MAX WEEK PRICE -->
+                            {{ form_row(form.maxWeekPrice) }}
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <div class="form-group">
+                            {{ form_row(form.q) }}
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3 weekend-price-container">
+                        {#<h5>Intervalle de prix en fin de semaine</h5>#}
+                        <div id="weekend-price" data-min="{{ minMax.minWeekendPrice }}"
+                             data-max="{{ minMax.maxWeekendPrice }}"></div>
+                        <div class="min-max-container">
+                            <!-- MIN WEEK PRICE -->
+                            {{ form_row(form.minWeekendPrice) }}
+                            <!-- MAX WEEK PRICE -->
+                            {{ form_row(form.maxWeekendPrice) }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row justify-content-center">
+                </div>
+                <div class="row justify-content-center mt-3">
+                    <!-- GUEST-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.guestPlaceCount) }}
+                        </div>
+                    </div>
+                    <!-- EQUIPMENT -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.equipments) }}
+                        </div>
+                    </div>
+
+                    <!-- ROOMS CATEGORY -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {{ form_row(form.categories) }}
+                        </div>
+                    </div>
+
+                    {{ form_rest(form) }}
+                    <!-- BOOKING BUTTON -->
+                    <div class="col-md-3">
+{#                        <button type="submit" class="btn btn-book"><i class="fa fa-search"></i></button>#}
+                        <button type="submit" class="btn btn-book btn-search"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

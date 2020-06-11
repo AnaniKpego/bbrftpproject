@@ -1,0 +1,103 @@
+{% extends 'admin/layout/base.html.twig' %}
+{% block title %}BBr Administration service sur demande{% endblock %}
+{% block body %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 text-center">Liste des réservations des services sur demande</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Reservation N°</th>
+                        <th>Nom et prenom(s) du client</th>
+                        <th>Email</th>
+                        <th>Titre service</th>
+                        <th>Date de livraison du service</th>
+                        <th>Prix ordinaire</th>
+                        <th>Tarifs</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Reservation N°</th>
+                        <th>Nom et prenom(s) du client</th>
+                        <th>Contacts</th>
+                        <th>Titre service</th>
+                        <th>Date de livraison du service</th>
+                        <th>Prix ordinaire</th>
+                        <th>Tarifs</th>
+                        <th>Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for service_booking in service_bookings %}
+                        <tr>
+                            <td>BBR-service-{{ service_booking.bookingAt  ? service_booking.bookingAt|date('d-m-Y') : ''}}{{ service_booking.id }}</td>
+                            <td>{{ service_booking.booker.firstName }}{{ service_booking.booker.lastName }}</td>
+                            <td>
+                                <ul>
+                                    <li>{{ service_booking.booker.email }}</li>
+                                    <li>{{ service_booking.booker.phone }}</li>
+                                </ul>
+
+                            </td>
+                            <td>{{ service_booking.service.title }}</td>
+                            {#<td>{{ service_booking.createdAt ? service_booking.createdAt|date('d-m-Y H:i:s') : ''}}</td>#}
+                            <td>{{ service_booking.bookingAt ? service_booking.bookingAt|date('d-m-Y H:i:s') : ''}}</td>
+                            <td>{{ service_booking.service.getFormatPrice }}</td>
+                            <td>
+                                {% for tariff in service_booking.service.tariffs %}
+                                    <ul>
+                                        <li>{{tariff.title  }}</li>
+                                        <li>{{ tariff.getFormatPrice }}</li>
+                                        <li>{{ tariff.typeOfTariff.title }}</li>
+                                    </ul>
+                                {% else %}
+                                   <p class="text-warning">Aucun tarif associé à cet évènement, veuillez contacter le service client</p>
+
+                                {% endfor %}
+                            </td>
+
+                            {#<td>#}
+                                {#<a href="{{ vich_uploader_asset(service.mainImage, 'imageFile') }}">#}
+                                    {#<img src="{{ vich_uploader_asset(service.mainImage, 'imageFile') }}" class="img-fluid" alt="Image" width="50" height="50">#}
+                                {#</a>#}
+                            {#</td>#}
+                            {#<td>#}
+                                {#{% for image in service.secondaryImages %}#}
+                                    {#<a href="{{ vich_uploader_asset(image, 'imageFile') }}">#}
+                                        {#<img src="{{ vich_uploader_asset(image, 'imageFile') }}" class="img-fluid" alt="Image" width="50" height="50">#}
+                                    {#</a>#}
+                                {#{% endfor %}#}
+                            {#</td>#}
+                            {#<td>#}
+                                {#{% for equipment in service.equipments %}#}
+                                    {#<span><i class="fa fa-{{ equipment.icon }}"></i><em>{{ equipment.name }}</em></span>#}
+                                {#{% endfor %}#}
+                            {#</td>#}
+                            <td class="d-inline-flex">
+                                {#<a href="{{ path('service_equipment_show', {'id': service_equipment.id}) }}">show</a>#}
+                                {#<a href="{{ path('app_bbr_admin_service_booking_edit', {'service': service.id}) }}" class="btn btn-sm btn-success mx-3">Update</a>#}
+                                {{ include('admin/service_booking/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+{% endblock %}

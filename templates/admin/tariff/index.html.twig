@@ -1,0 +1,70 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+    {% block title %}Administration des Tarifs{% endblock %}
+
+    {% block body %}
+        <div class="container col-md-12 justify-content-center align-items-center">
+
+            <h1 class="text-center">Liste des Tarifs</h1>
+            <div class="justify-content-center">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <a href="{{ path('app_bbr_admin_tariff_new') }}" class="btn btn-sm btn-primary float-right">Enregistrer
+                            un tarif</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Prix</th>
+                                    <th>Detail</th>
+                                    <th>Crée le</th>
+                                    <th>Mise à jour le</th>
+                                    <th>actions</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Prix</th>
+                                    <th>Detail</th>
+                                    <th>Crée le</th>
+                                    <th>Mise à jour le</th>
+                                    <th>actions</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for tariff in tariffs %}
+                                    <tr>
+                                        <td>{{ tariff.title }}</td>
+                                        <td>{{ tariff.price }}</td>
+                                        <td>{{ tariff.detail|raw|raw }}</td>
+                                        <td>{{ tariff.createdAt ? tariff.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>{{ tariff.updatedAt ? tariff.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                        {#<td>{{ tariff.updatedAt ? tariff.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
+                                        <td class="d-inline-flex">
+                                            {#<a href="{{ path('app_bbr_tariff_show', {'id': tariff.id}) }}">show</a>#}
+                                            <a href="{{ path('app_bbr_admin_tariff_edit', {'id': tariff.id}) }}"
+                                               class="btn btn-sm btn-success mx-3">Update</a>
+                                            {{ include('admin/tariff/_delete_form.html.twig') }}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">Aucun tariff enregistré</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{{ path('app_bbr_admin_tariff_new') }}" class="btn btn-primary btn-sm">Créer un nouvel
+                    tariff</a>
+            </div>
+        </div>
+    {% endblock %}
+

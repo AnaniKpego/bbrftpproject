@@ -1,0 +1,66 @@
+
+{{ form_start(form) }}
+    <div class="form-group row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            {{ form_label(form.title) }}
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
+        <div class="col-sm-6 mb-3">
+            {{ form_label(form.imageFile) }}
+            {{ form_errors(form.imageFile) }}
+            {{ form_widget(form.imageFile) }}
+        </div>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            {{ form_label(form.phone) }}
+            {{ form_errors(form.phone) }}
+            {{ form_widget(form.phone) }}
+        </div>
+        <div class="col-sm-6 mb-3">
+            {{ form_label(form.email) }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12 mb-3">
+            {{ form_label(form.subtitle) }}
+            {{ form_errors(form.subtitle) }}
+            {{ form_widget(form.subtitle) }}
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-12 mb-3 mb-sm-0">
+            {{ form_label(form.description) }}
+            {{ form_errors(form.description) }}
+            {{ form_widget(form.description) }}
+        </div>
+    </div>
+    <div class="form-group row col-md-12">
+        <div class="col-sm-5 mb-3">
+            {{ form_label(form.tariffs) }}
+            {{ form_errors(form.tariffs) }}
+            {{ form_widget(form.tariffs) }}
+        </div>
+        <div class="col-sm-7 mb-3">
+            {{ form_label(form.startAt) }}
+            {{ form_errors(form.startAt) }}
+            {{ form_widget(form.startAt) }}
+        </div>
+    </div>
+    <div class="form-group row col-md-12">
+        <div class="col-sm-5 mb-3 mb-sm-0">
+                {{ form_rest(form) }}
+                <div class="d-inline mt-5">
+                    <button class="btn btn-success btn-sm">{{ button_label|default('Enregistrer') }}</button>
+                    {#<button type="reset" class="btn btn-warning btn-sm mx-5">{{ button_label|default('Annuler') }}</button>#}
+                </div>
+                <button type="reset" class="btn btn-warning btn-sm">ANNULER</button>
+        </div>
+    </div>
+
+{{ form_end(form) }}

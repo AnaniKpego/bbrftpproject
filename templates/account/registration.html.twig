@@ -1,0 +1,78 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block title %}BBR restauration{% endblock %}
+
+{% block body %}
+    <!-- ========== MAIN ========== -->
+    <main class="contact-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h4>S'ENREGISTRER</h4>
+                    </div>
+                    <!-- CONTACT FORM -->
+                    {{ form_start(form) }}
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            {{ form_label(form.firstName) }}
+                            {{ form_errors(form.firstName) }}
+                            {{ form_widget(form.firstName) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(form.lastName) }}
+                            {{ form_errors(form.lastName) }}
+                            {{ form_widget(form.lastName) }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            {{ form_label(form.phone) }}
+                            {{ form_errors(form.phone) }}
+                            {{ form_widget(form.phone) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(form.email) }}
+                            {{ form_errors(form.email) }}
+                            {{ form_widget(form.email) }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            {{ form_label(form.city) }}
+                            {{ form_errors(form.city) }}
+                            {{ form_widget(form.city) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(form.address) }}
+                            {{ form_errors(form.address) }}
+                            {{ form_widget(form.address) }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            {{ form_label(form.password) }}
+                            {{ form_errors(form.password) }}
+                            {{ form_widget(form.password) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(form.passwordConfirm) }}
+                            {{ form_errors(form.passwordConfirm) }}
+                            {{ form_widget(form.passwordConfirm) }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn mt30">VALIDER</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Administration d'un slide{% endblock %}
+
+{% block body %}
+<div class="container col-md-12 justify-content-center align-items-center">
+
+    <h4 class="text-center">Info slide </h4>
+    <div class="justify-content-center">
+        <div class="card shadow mb-4">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <td>{{ slide.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Image</th>
+                        <td><img src="{{ vich_uploader_asset(slide, 'imageFile')}}" class="img-fluid h-100 w-auto" alt=""> </td>
+                    </tr>
+                    <tr>
+                        <th>Crée le</th>
+                        <td>{{ slide.createdAt ? slide.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mise à jour le</th>
+                        <td>{{ slide.updatedAt ? slide.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="{{ path('app_bbr_admin_slide_index') }}">back to list</a>
+
+            <a href="{{ path('app_bbr_admin_slide_edit', {'id': slide.id}) }}">edit</a>
+
+            {{ include('admin/slide/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+{% endblock %}

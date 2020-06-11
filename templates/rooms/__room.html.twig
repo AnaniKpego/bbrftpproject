@@ -1,0 +1,49 @@
+<div class="room-js room-js-hide">
+    <div class="row">
+        <div class="col-lg-4">
+            <figure class="gradient-overlay-hover link-icon">
+                <a href="#" class="d-inline-block w-100 room-js-image-link">
+{#                    <img src="{{ vich_uploader_asset(room.mainImage, 'imageFile') }}"#}
+{#                         class="room-image img-fluid" alt="Image">#}
+                </a>
+            </figure>
+        </div>
+        <div class="col-lg-6">
+            <div class="room-info">
+                <h3 class="room-title">
+                    <a href="#"></a>
+                </h3>
+                <span class="room-rates">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    {#<a href="#room-reviews">5.00 Based on 3 Ratings</a>#}
+                                  </span>
+                <p class="room-summary"></p>
+                <div class="room-services">
+{#                    {% for equipment in room.equipments %}#}
+{#                        <i class="fa fa-{{ equipment.icon }}" data-toggle="popover" data-placement="top"#}
+{#                           data-trigger="hover"#}
+{#                           data-content="{{ equipment.name }} Inclu"#}
+{#                           data-original-title="{{ equipment.name }}">#}
+
+{#                        </i>#}
+{#                    {% endfor %}#}
+                    {#<span>Beds: 1 King</span>#}
+                    <span class="room-guest-place-count"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="room-price">
+                                <span class="price week-price">{#{{ room.weekPrice | number_format(0,',',' ') }}
+                                    xof / nuit(semaine)#}</span>
+                <span class="price weekend-price">{#{{ room.weekendPrice | number_format(0,',',' ') }}xof / nuit(weekend)#}</span>
+                <a href="#"
+                   class="btn btn-sm room-link">DETAILS</a>
+            </div>
+        </div>
+    </div>
+</div>

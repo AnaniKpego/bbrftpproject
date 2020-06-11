@@ -1,0 +1,63 @@
+
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Administration des messages clients{% endblock %}
+
+{% block body %}
+    <div class="container col-md-12 justify-content-center align-items-center">
+
+        <h1 class="text-center">Liste des messages clients</h1>
+        <div class="justify-content-center">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Nom et prénom</th>
+                                <th>Email</th>
+                                <th>Sujet</th>
+                                <th>Message</th>
+                                <th>Envoyé le</th>
+                                {#<th>Mise à jours le</th>#}
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Nom et prénom</th>
+                                <th>Email</th>
+                                <th>Sujet</th>
+                                <th>Message</th>
+                                <th>Envoyé le</th>
+                                {#<th>Mise à jours le</th>#}
+                                <th>Actions</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+
+                            {% for contact in contacts %}
+                                <tr>
+                                    <td>{{ contact.name }}</td>
+                                    <td>{{ contact.email }}</td>
+                                    <td>{{ contact.subject }}</td>
+                                    <td>{{ contact.message|raw|raw }}</td>
+                                    <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td class="d-inline-flex">
+                                        <a href="{{ path('app_bbr_admin_contact_show', {'id': contact.id}) }}" class="btn btn-sm btn-success mx-3">Voir le Message</a>
+                                        {{ include('admin/contact/_delete_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

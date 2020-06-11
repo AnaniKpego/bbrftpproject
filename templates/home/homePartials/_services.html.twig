@@ -1,0 +1,36 @@
+<section class="services">
+    <div class="container">
+        <div class="section-title">
+            <p class="section-subtitle"><h2>BBr SERVICES</h2></p>
+        </div>
+        <div class="row">
+            <div class="col-lg-7 col-12">
+                <div data-slider-id="services" class="services-owl owl-carousel">
+                    {% for service in services %}
+                        <figure class="gradient-overlay">
+                            <img src="{{ vich_uploader_asset(service,'imageFile') }}" class="img-fluid" alt="Image">
+                            <figcaption>
+                                <h4>{{ service.title }}t</h4>
+                            </figcaption>
+                        </figure>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-5 col-12">
+                <div class="owl-thumbs" data-slider-id="services">
+                    {% for service in services %}
+                    <div class="owl-thumb-item">
+                          {#<span class="media-left">#}
+                            {#<i class="flaticon-tray-1"></i>#}
+                          {#</span>#}
+                        <div class="media-body">
+                            <h4>{{ service.title }}</h4>
+                            <p>{{ service.subtitle|raw|raw }}.</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

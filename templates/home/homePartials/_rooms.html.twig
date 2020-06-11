@@ -1,0 +1,73 @@
+{#<section class="rooms gray">#}
+    {#<div class="container">#}
+        {#<div class="section-title">#}
+            {#<p class="section-subtitle"><h2>BBr HEBERGEMENTS</h2></p>#}
+            {#<a href="{{ path('app_bbr_rooms') }}" class="view-all">VOIR PLUS</a>#}
+        {#</div>#}
+        {#<div class="row">#}
+            {#<!-- ITEM -->#}
+            {#{% for room in rooms %}#}
+            {#<div class="col-md-4 mb-4">#}
+                {#<div class="offer-item">#}
+                    {#<figure class="gradient-overlay-hover link">#}
+                        {#<a href="{{ path('app_bbr_room_show',{'id': room.id}) }}" class="d-inline-block w-100">#}
+                        {#<img src="{{ vich_uploader_asset(room.mainImage, 'imageFile') }}" class="room-image img-fluid" alt="Image">#}
+                        {#</a>#}
+                    {#</figure>#}
+                    {#{% if(room.getRoomLevel == true) %}#}
+                    {#<div class="ribbon">#}
+                        {#<span>Suite VIP</span>#}
+                    {#</div>#}
+                    {#{% endif %}#}
+                    {#<div class="offer-price">#}
+                        {#{{ room.getFormatPrice(room.weekPrice) }} / nuit(semaine)#}
+                        {#<br>#}
+                        {#{{ room.getFormatPrice(room.weekendPrice) }} / nuit(weekend)#}
+
+                    {#</div>#}
+                    {#<h6 class="offer-title">#}
+                        {#<a href="{{ path('app_bbr_room_show',{'id': room.id}) }}">{{ room.title }}</a>#}
+                    {#</h6>#}
+                {#</div>#}
+            {#</div>#}
+            {#{% endfor %}#}
+
+            {#<!-- ITEM -->#}
+        {#</div>#}
+    {#</div>#}
+{#</section>#}
+<section class="rooms gray">
+    <div class="container">
+        <div class="section-title">
+        <p class="section-subtitle"><h3>BBr HEBERGEMENTS</h3></p>
+        <a href="{{ path('app_bbr_rooms') }}" class="view-all">VOIR PLUS</a>
+        </div>
+        <div class="row">
+            {% for room in rooms %}
+            <!-- ITEM -->
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="room-grid-item">
+                    <figure class="gradient-overlay-hover link-icon">
+                        <a href="{{ path('app_bbr_room_show',{'id': room.id}) }}" class="d-inline-block w-100">
+                            <img src="{{ vich_uploader_asset(room.mainImage, 'imageFile') }}" class="room-image img-fluid" alt="Image">
+                        </a>
+
+                        <div class="room-price">
+                            {{ room.getFormatPrice(room.weekPrice) }} / nuit(semaine)
+                            <br>
+                            {{ room.getFormatPrice(room.weekendPrice) }} / nuit(weekend)
+                        </div>
+                    </figure>
+                    <div class="room-info">
+                        <h5 class="room-title">
+                            <a href="{{ path('app_bbr_room_show',{'id': room.id}) }}">{{ room.title }}</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITEM -->
+            {% endfor %}
+        </div>
+    </div>
+</section>

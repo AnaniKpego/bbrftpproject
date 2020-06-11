@@ -1,0 +1,92 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Réservation effectuée avec succes{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mt-5 mb-5 justify-content-center">
+            <div class="card">
+                <div class="card-head">
+                    <h2 class="card-title text-center pt-3">
+                        Boulaybeachresort réservation
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p class="alert alert-success ">
+                         Votre demande de réservation a été effectuée avec succès. Verifiez votre boite
+                            mail pour imprimer votre réçu de réservation
+                            Merci.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#room_booking_startedAt, #room_booking_endedAt').datepicker({
+                format: 'dd/mm/yyyy',
+                datesDisabled: [
+                    {% for day in room.notAvailableDays %}
+                    "{{ day.format('d/m/Y') }}",
+                    {% endfor %}
+                ],
+                startDate: new Date()
+            });
+
+            $('#room_booking_startedAt, #room_booking_endedAt').on('change', calculateAmount);
+        });
+
+        function calculateAmount() {
+            // On chope les dates
+            const endDate = new Date(
+                $('#room_booking_endedAt')
+                    .val()
+                    .replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1')
+            );
+
+            const startDate = new Date(
+                $('#room_booking_startedAt')
+                    .val()
+                    .replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1')
+            );
+
+            if (startDate && endDate && startDate < endDate) {
+                const DAY_TIME = 24 * 60 * 60 * 1000;
+
+                const interval = endDate.getTime() - startDate.getTime();
+                const days = interval / DAY_TIME;
+
+                let weekDays = 0, weekendDays = 0;
+
+                for (let i = 0; i <= days; i++) {
+                    let date = new Date(startDate.getTime() + i * DAY_TIME);
+                    if (date.getDay() === 6 || date.getDay() === 0) {
+                        weekendDays++;
+                    } else {
+                        weekDays++;
+                    }
+                }
+
+                const amount = weekDays * {{ room.weekPrice }} +weekendDays * {{ room.weekendPrice }};
+
+                $('#days-week').text(weekDays);
+                $('#days-weekend').text(weekendDays);
+                $('#amount').text(amount.toLocaleString('fr-FR'));
+            }
+        }
+
+    </script>
+
+{% endblock %}

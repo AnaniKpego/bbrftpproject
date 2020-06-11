@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Slide index{% endblock %}
+
+{% block body %}
+    <h1>Slide index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Filename</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for slide in slides %}
+            <tr>
+                <td>{{ slide.id }}</td>
+                <td>{{ slide.title }}</td>
+                <td>{{ slide.filename }}</td>
+                <td>{{ slide.createdAt ? slide.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ slide.updatedAt ? slide.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('slide_show', {'id': slide.id}) }}">show</a>
+                    <a href="{{ path('slide_edit', {'id': slide.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('slide_new') }}">Create new</a>
+{% endblock %}

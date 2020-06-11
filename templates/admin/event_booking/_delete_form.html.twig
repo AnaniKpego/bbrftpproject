@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_bbr_admin_event_booking_delete', {'id': event_booking.id}) }}" onsubmit="return confirm('Êtes-vous sûre de vouloir supprimer cet équippement?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event_booking.id) }}">
+    <button class="btn btn-danger btn-sm">Supprimer</button>
+</form>

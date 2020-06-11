@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome to BBr{% endblock %}</title>
+
+        {% include './partials/_styles-links.html.twig' %}
+        {% block stylesheets %}{% endblock %}
+
+        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app')|replace({'src=': 'defer src='})|raw }}
+    </head>
+    <body>
+        {% include './partials/_proloader.html.twig' %}
+        <nav id="mobile-menu"></nav>
+        <div class="wrapper">
+            {% include './partials/_topbar.html.twig' %}
+            {% include './partials/_header.html.twig' %}
+
+            {% block body %}{% endblock %}
+
+            {% include './partials/_footer.html.twig' %}
+        </div>
+
+        {% include './partials/_js-links.html.twig' %}
+        {% include './partials/_revolution-slider-js-links.html.twig' %}
+
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>

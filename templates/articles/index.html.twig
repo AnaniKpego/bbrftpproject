@@ -1,0 +1,121 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block title %}Bienvenue à Boulay Beach Resort Actualités{% endblock %}
+
+{% block body %}
+
+    <!-- ========== PAGE TITLE ========== -->
+    <div class="page-title gradient-overlay op6"
+         style="background: url({{ asset('/assets/images/breadcrumb.jpg') }}); background-repeat: no-repeat;
+                 background-size: cover;">
+        <div class="container">
+            <div class="inner">
+                <h1>BBr BLOG</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/">Accueil</a>
+                    </li>
+                    <li>Actualités</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- ========== MAIN ========== -->
+    <main>
+        <div class="container">
+            <div class="row">
+                <!-- ========== POSTS ========== -->
+                <div class="col-lg-9 col-12">
+                    <!-- POSTS -->
+                    <div class="blog-posts">
+                        <div class="row">
+                            <!-- ITEM -->
+                            {% for article in articles %}
+                                <div class="col-md-6">
+                                    <div class="news-grid-item">
+                                        <figure class="gradient-overlay-hover link-icon">
+                                            <a href="{{ path('app_bbr_article_show',{'id' : article.id}) }}">
+                                                <img src="{{ vich_uploader_asset(article,'imageFile') }}"
+                                                     class="img-fluid">
+                                            </a>
+                                        </figure>
+                                        <div class="news-info">
+                                            <h4 class="title">
+                                                <a href="{{ path('app_bbr_article_show',{'id' : article.id}) }}">{{ article.title }}</a>
+                                            </h4>
+                                            <p>{{ article.subtitle|raw|raw }}...</p>
+                                            <div class="post-meta">
+                                                <span class="author">
+                                                  <a href="#"><img src="{{ asset('/assets/images/users/admin.jpg') }}" width="16" alt="Image">
+                                                    JANE</a>
+                                                </span>
+                                                <span class="date">
+                                                  <i class="fa fa-clock-o"></i>
+                                                  August 13, 2017</span>
+                                                                            <span class="comments">
+                                                  <a href="#">
+                                                    <i class="fa fa-commenting-o"></i>
+                                                    1 Comment</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                            <!-- ITEM -->
+                        </div>
+                        {#<div class="row pagination justify-content-center">#}
+                            {#{{ knp_pagination_render(articles) }}#}
+                        {#</div>#}
+                    </div>
+                </div>
+                <!-- ========== SIDEBAR ========== -->
+                <div class="col-lg-3 col-12">
+                    <div class="sidebar">
+                        <aside class="widget noborder">
+                            <div class="search">
+                                <form class="widget-search">
+                                    <input type="search" placeholder="Search">
+                                    <button class="btn-search" id="searchsubmit" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </aside>
+                        <!-- WIDGET -->
+                        <aside class="widget">
+                            <h4 class="widget-title">Nos chambres</h4>
+                            <div class="latest-posts">
+                                <!-- ITEM -->
+                                {% for room in rooms %}
+
+                                <div class="latest-post-item">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <figure class="gradient-overlay-hover link-icon sm">
+                                                <a href="{{ path('app_bbr_room_show',{'id' : room.id}) }}" class="d-inline-block w-100">
+                                                    <img src="{{ vich_uploader_asset(room.mainImage, 'imageFile') }}"
+                                                         class="room-image img-fluid" alt="Image">
+                                                </a>
+                                            </figure>
+                                        </div>
+                                        <div class="col-7">
+                                            <div class="post-details">
+                                                <h6 class="post-title">
+                                                    <a href="{{ path('app_bbr_room_show',{'id' : room.id}) }}">{{ room.title }}</a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

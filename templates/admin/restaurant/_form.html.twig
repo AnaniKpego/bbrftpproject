@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<div class="d-inline-flex">
+    <button class="btn btn-success btn-sm">{{ button_label|default('Enregistrer') }}</button>
+    {#<button type="reset" class="btn btn-warning btn-sm mx-5">{{ button_label|default('Annuler') }}</button>#}
+</div>
+{{ form_end(form) }}

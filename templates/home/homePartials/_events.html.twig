@@ -1,0 +1,36 @@
+<section class="events">
+    <div class="container">
+        <div class="section-title">
+            <p class="section-subtitle"><h2>BBr EVENTS</h2></p>
+            <a href="{{path('app_bbr_event_index') }}" class="view-all">VOIR PLUS</a>
+        </div>
+        <div class="events-owl owl-carousel">
+            {% for event in events %}
+            <!-- ITEM -->
+            <div class="room-grid-item">
+                <figure class="gradient-overlay-hover link-icon">
+                    <a href="{{ path('app_bbr_event_show',{'id': event.id}) }}">
+                        <img src="{{ vich_uploader_asset(event, 'imageFile') }}" class="img-fluid" alt="Image">
+                    </a>
+                    <div class="room-services pb-5">
+                        <i class="fa fa-phone" aria-hidden="true" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="{{ event.phone }}3" data-original-title="Reservation par appel"></i>
+                        <i class="fa fa-envelope" aria-hidden="true" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="{{ event.email }}" data-original-title="Reservation par mail"></i>
+                    </div>
+                    <div class="room-price"> <i class="fa fa-calendar"></i> {{ event.startAt ? event.startAt|date('d-m-y') }} - <i class="fa fa-clock-o"></i> {{ event.startAt ? event.startAt|date('h:i') }}</div>
+                </figure>
+                <div class="room-info">
+                    <h2 class="room-title">
+                        <a href="{{ path('app_bbr_event_show',{'id': event.id}) }}">{{ event.title }}</a>
+                    </h2>
+                    <p>{{ event.subtitle|raw|raw }}</p>
+                    <div class="align-center">
+                        <a class="btn btn-sm btn-dark" href="{{ path('app_bbr_event_show',{'id': event.id}) }}">Plus de détails</a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ITEM -->
+            {% endfor %}
+        </div>
+    </div>
+</section>

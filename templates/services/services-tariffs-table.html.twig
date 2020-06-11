@@ -1,0 +1,24 @@
+<table class="table table-hover table-responsive-sm table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Type tarif</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Résumé</th>
+        <th scope="col">Contenu</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for tariff in service.tariffs %}
+        <tr>
+            <td>{{tariff.title  }}</td>
+            <td>{{ tariff.getFormatPrice }}</td>
+            <td>{{ tariff.typeOfTariff.title }}</td>
+            <td>{{tariff.detail|raw|raw  }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">Aucun tarif associé à cet service, veuillez contacter le service client</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

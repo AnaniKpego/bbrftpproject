@@ -1,0 +1,43 @@
+<section class="news">
+    <div class="container">
+        <div class="section-title">
+            <p class="section-subtitle"><h2>BBr ACTUALITES</h2></p>
+            <a href="{{ path('app_bbr_articles') }}" class="view-all">VOIR PLUS</a>
+        </div>
+        <div class="row">
+            <!-- ITEM -->
+            {% for article in articles %}
+            <div class="col-md-4">
+                <div class="news-grid-item">
+                    <figure class="gradient-overlay-hover link-icon">
+                        <a href="{{ path('app_bbr_article_show',{'id' : article.id}) }}">
+                            <img src="{{ vich_uploader_asset(article,'imageFile') }}" alt="" class="room-image  img-fluid ">
+                        </a>
+                    </figure>
+                    <div class="news-info">
+                        <h4 class="title">
+                            <a href="{{ path('app_bbr_article_show',{'id' : article.id}) }}">{{ article.title }}</a>
+                        </h4>
+                        <p>{{ article.subtitle|raw|raw }}...</p>
+                        <div class="post-meta">
+                    <span class="author">
+                      <a href="#"><img src="{{ asset('/assets/images/users/admin.jpg') }}" width="16" alt="Image">
+                        JANE</a>
+                    </span>
+                            <span class="date">
+                      <i class="fa fa-clock-o"></i>
+                      August 13, 2017</span>
+                            <span class="comments">
+                      <a href="#">
+                        <i class="fa fa-commenting-o"></i>
+                        1 Comment</a>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>

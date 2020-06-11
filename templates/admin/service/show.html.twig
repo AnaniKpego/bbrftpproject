@@ -1,0 +1,57 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Administration d'un service{% endblock %}
+
+{% block body %}
+    <div class="container col-md-12 justify-content-center align-items-center">
+
+        <h4 class="text-center">Info service </h4>
+        <div class="justify-content-center">
+            <div class="card shadow mb-4">
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <td>{{ service.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Resumé</th>
+                        <td>{{ service.subtite |raw|raw}}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ service.description|raw|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Image</th>
+                        <td><img src="{{ vich_uploader_asset(service, 'imageFile')}}" class="img-fluid h-100 w-auto" alt=""> </td>
+                    </tr>
+                    <tr>
+                        <th>Service(s)</th>
+                        <td>
+                            {% for tariff in service.tariffs %}
+                               <h3> {{ tariff.title }} - {{ tariff.getFormatPrice() }}</h3>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Crée le</th>
+                        <td>{{ service.createdAt ? service.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mise à jour le</th>
+                        <td>{{ service.updatedAt ? service.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_bbr_admin_service_index') }}">back to list</a>
+
+                <a href="{{ path('app_bbr_admin_service_edit', {'id': service.id}) }}">edit</a>
+
+                {{ include('admin/service/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

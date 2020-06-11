@@ -1,0 +1,219 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block title %}Faites votre choix{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
+    <style>
+
+        .room-image {
+            object-position: top;
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .min-max-container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .room-js-hide {
+            display: none;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <!-- ========== PAGE TITLE ========== -->
+    <div class="page-title gradient-overlay op6"
+         style="background: url({{ asset('/assets/images/breadcrumb.jpg') }}); background-repeat: no-repeat;
+                 background-size: cover;">
+        <div class="container">
+            <div class="inner">
+                <h1>NOS CHAMBRES ET APPARTEMENTS</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/">Accueil</a>
+                    </li>
+                    <li>Chambre</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    {% include('rooms/room_filter/room_form_filter.html.twig') %}
+
+    <!-- ========== MAIN ========== -->
+    <main class="rooms-list-view">
+
+        <div class="container room-list">
+            {% include 'rooms/__room.html.twig' %}
+            {% for room in rooms %}
+                <div class="room-list-item">
+                    {% if(room.getRoomLevel == true) %}
+                        <div class="favorite-item">
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <figure class="gradient-overlay-hover link-icon">
+                                <a href="{{ path('app_bbr_room_show',{'id' : room.id}) }}" class="d-inline-block w-100">
+                                    <img src="{{ vich_uploader_asset(room.mainImage, 'imageFile') }}"
+                                         class="room-image img-fluid" alt="Image">
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="room-info">
+                                <h3 class="room-title">
+                                    <a href="{{ path('app_bbr_room_show',{'id' : room.id}) }}">{{ room.title }}</a>
+                                </h3>
+                                <span class="room-rates">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <a href="#room-reviews">Chambre de lux</a>
+                                  </span>
+                                <p>{{ room.summary|raw|raw }}...</p>
+                                <div class="room-services">
+                                    {% for equipment in room.equipments %}
+                                        <i class="fa fa-{{ equipment.icon }}" data-toggle="popover" data-placement="top"
+                                           data-trigger="hover"
+                                           data-content="{{ equipment.name }} Inclu"
+                                           data-original-title="{{ equipment.name }}">
+
+                                        </i>
+                                    {% endfor %}
+                                    <span>Pour: {{ room.guestPlaceCount }} personne(s)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="room-price">
+                                <span class="price">{{ room.weekPrice | number_format(0,',',' ') }}
+                                    xof / nuit(semaine)</span>
+                                <span class="price">{{ room.weekendPrice | number_format(0,',',' ') }}xof / nuit(weekend)</span>
+                                <a href="{{ path('app_bbr_room_show',{'id' : room.id}) }}"
+                                   class="btn btn-sm">DETAILS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- ITEM -->
+
+        <!-- PAGINATION -->
+        {#        <div class="row pagination justify-content-center">#}
+        {#            {{ knp_pagination_render(rooms) }}#}
+        {#        </div>#}
+    </main>
+    <!-- ========== FOOTER ========== -->
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const btnSubmit = document.querySelector(".btn-search");
+        const q = document.querySelector("#search_data_q");
+        const minWeekPrice = document.querySelector("#search_data_minWeekPrice");
+        const maxWeekPrice = document.querySelector("#search_data_maxWeekPrice");
+        const minWeekendPrice = document.querySelector("#search_data_minWeekendPrice");
+        const maxWeekendPrice = document.querySelector("#search_data_maxWeekendPrice");
+        const guestPlaceCount = document.querySelector("#search_data_guestPlaceCount");
+        const equipments = document.querySelector("#search_data_equipments");
+        const categories = document.querySelector("#search_data_categories");
+
+        btnSubmit.addEventListener("click", e => {
+            e.preventDefault();
+            // var data = {
+            //     'q': q.value,
+            //         'minWeekPrice': minWeekPrice.value,
+            //         'maxWeekPrice': maxWeekPrice.value,
+            //         'minWeekendPrice': minWeekendPrice.value,
+            //         'maxWeekendPrice': maxWeekendPrice.value,
+            //         'guestPlaceCount': guestPlaceCount.value,
+            //         'equipments': equipments.selectedOptions.length === 0 ? [-1]: Array.from(equipments.selectedOptions || {}).map(op => parseInt(op.value)),
+            //         'categories': categories.selectedOptions.length === 0 ? [-1]: Array.from(categories.selectedOptions || {}).map(op => parseInt(op.value))
+            // };
+            //
+            // console.log(data);
+            $.ajax({
+                url: '/search',
+                method: 'post',
+                data: {
+                    'q': q.value,
+                    'minWeekPrice': minWeekPrice.value,
+                    'maxWeekPrice': maxWeekPrice.value,
+                    'minWeekendPrice': minWeekendPrice.value,
+                    'maxWeekendPrice': maxWeekendPrice.value,
+                    'guestPlaceCount': guestPlaceCount.value,
+                    'equipments': equipments.selectedOptions.length === 0 ? [-1] : Array.from(equipments.selectedOptions || {}).map(op => parseInt(op.value)),
+                    'categories': categories.selectedOptions.length === 0 ? [-1] : Array.from(categories.selectedOptions || {}).map(op => parseInt(op.value))
+                },
+                success: function (data) {
+                    const rooms = JSON.parse(data);
+                    const roomListContainer = document.querySelector(".room-list");
+                    const roomJs = document.querySelector(".room-js");
+
+                    const items = roomListContainer.querySelectorAll(".room-list-item");
+                    items.forEach(item=>{
+                        roomListContainer.removeChild(item);
+                    });
+
+                    if (rooms.length === 0) {
+                        const h3 = document.createElement("h3");
+                        h3.classList.add("js-rooms-not-found");
+                    } else {
+                        console.log(rooms);
+
+                        rooms.forEach(room => {
+                            const clone = roomJs.cloneNode(true);
+
+                            const imageLink = clone.querySelector(".room-js-image-link");
+                            imageLink.href = `/room/${room.id}/show`;
+
+                            const roomImage = document.createElement("img");
+                            roomImage.src = `/uploads/images/${room.mainImage.image}`;
+                            roomImage.classList.add("room-image","img-fluid");
+                            imageLink.appendChild(roomImage);
+
+                            const roomTitle = clone.querySelector(".room-title a");
+                            roomTitle.href = `/room/${room.id}/show`;
+                            roomTitle.textContent = room.title;
+
+                            clone.querySelector(".room-summary").innerHTML= room.summary;
+
+                            clone.querySelector(".room-guest-place-count").textContent = `Pour ${room.guestPlaceCount} personne(s)`;
+
+                            const roomServicesContainer = clone.querySelector(".room-services");
+                            room.equipments.forEach(equipment => {
+                                const i = document.createElement("i");
+                                i.classList.add("fa", `fa-${equipment.icon}`);
+                                i.setAttribute("data-toggle", "popover");
+                                i.setAttribute("data-placement", "top");
+                                i.setAttribute("data-trigger", "hover");
+                                i.setAttribute("data-content", `${equipment.name} inclu`);
+                                i.setAttribute("data-original-title", `${equipment.name}`);
+                                roomServicesContainer.insertBefore(i, roomServicesContainer.children[0]);
+                            });
+
+                            clone.querySelector(".week-price").textContent = `${room.weekPrice} XOF / NUIT (SEMAINE)`;
+                            clone.querySelector(".weekend-price").textContent = `${room.weekendPrice} XOF / NUIT (WEEKEND)`;
+
+                            clone.querySelector(".room-link").href = `/room/${room.id}/show`;
+
+                            clone.classList.remove("room-js", "room-js-hide");
+                            clone.classList.add("room-list-item");
+                            roomListContainer.appendChild(clone);
+                        });
+                    }
+                }
+            });
+        }, false);
+
+    </script>
+{% endblock %}

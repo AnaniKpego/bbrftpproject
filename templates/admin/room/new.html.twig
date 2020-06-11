@@ -1,0 +1,68 @@
+{% extends 'admin/layout/base.html.twig' %}
+{% block title %}BBr Administration Chambre{% endblock %}
+{% block body %}
+
+<div class="container col-md-10 justify-content-center align-items-center">
+
+    <div class="card shadow mb-4">
+
+        <div class="card-body">
+            <h1 class="text-center">Enregistrer une nouvelle chambre</h1>
+            <div class="justify-content-center">
+                {{ include('admin/room/_form.html.twig') }}
+
+                <a href="{{ path('app_bbr_admin_rooms') }}" class="float-lg-right btn-sm btn-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('#add-image').click(function(){
+            // Je récupère le numéro des futurs champs que je vais créer
+            const index = +$('#widgets-counter').val();
+
+            // Je récupère le prototype des entrées
+            let tmpl =  $('#room_secondaryImages').data('prototype').replace(/__name__label__/g,"");
+            tmpl = tmpl.replace(/__name__/g, index);
+
+            // J'injecte ce code au sein de la div
+            $('#room_secondaryImages').append(tmpl);
+
+            const fieldset = document.querySelector("#room_secondaryImages_"+index);
+            const button = document.createElement("button");
+            button.classList.add("btn","btn-danger");
+            button.setAttribute("data-action","delete");
+            button.setAttribute("type","button");
+            button.textContent = "Supprimer";
+            fieldset.appendChild(button);
+
+            $('#widgets-counter').val(index + 1);
+
+            // Je gère le bouton supprimer
+            handleDeleteButtons();
+        });
+
+        function handleDeleteButtons() {
+            let buttons = document.querySelectorAll("button[data-action='delete']");
+            Array.from(buttons).forEach((button)=>{
+                button.addEventListener("click",e=>{
+                    let target = button.parentNode.parentNode;
+                    target.parentNode.removeChild(target);
+                }, false);
+            });
+        }
+
+        function updateCounter() {
+            const count = +$('#room_secondaryImages div.form-group').length;
+
+            $('#widgets-counter').val(count);
+        }
+
+        updateCounter();
+        handleDeleteButtons();
+    </script>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'admin/layout/base.html.twig' %}
+{% block title %}BBr Administration Chambre{% endblock %}
+{% block body %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 text-center">Liste des réservations</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>N° Réservation</th>
+                        <th>Nom et prenom(s) du client</th>
+                        <th>Titre Appartement</th>
+                        {#<th>Date de reservation</th>#}
+                        <th>Date début</th>
+                        <th>Date fin</th>
+                        <th>Montant</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>N° Réservation</th>
+                        <th>Nom et prenom(s) du client</th>
+                        <th>Titre Appartement</th>
+                        {#<th>Date de reservation</th>#}
+                        <th>Date début</th>
+                        <th>Date fin</th>
+                        <th>Montant</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for room_booking in room_bookings %}
+                        <tr>
+                            <td>{{ room_booking.id }}</td>
+                            <td>{{ room_booking.booker.firstName }}{{ room_booking.booker.lastName }}</td>
+                            <td>{{ room_booking.room.title }}</td>
+                            {#<td>{{ room_booking.createdAt ? room_booking.createdAt|date('d-m-Y H:i:s') : ''}}</td>#}
+                            <td>{{ room_booking.startedAt  ? room_booking.startedAt|date('d-m-Y H:i:s') : ''}}</td>
+                            <td>{{ room_booking.endedAt  ? room_booking.endedAt|date('d-m-Y H:i:s') : ''}}</td>
+                            <td>{{ room_booking.amount | number_format(0, ' ',' ') }} xof</td>
+                            <td>{{ room_booking.booker.email }}</td>
+                            <td>{{ room_booking.booker.phone }}</td>
+                            {#<td>#}
+                                {#<a href="{{ vich_uploader_asset(room.mainImage, 'imageFile') }}">#}
+                                    {#<img src="{{ vich_uploader_asset(room.mainImage, 'imageFile') }}" class="img-fluid" alt="Image" width="50" height="50">#}
+                                {#</a>#}
+                            {#</td>#}
+                            {#<td>#}
+                                {#{% for image in room.secondaryImages %}#}
+                                    {#<a href="{{ vich_uploader_asset(image, 'imageFile') }}">#}
+                                        {#<img src="{{ vich_uploader_asset(image, 'imageFile') }}" class="img-fluid" alt="Image" width="50" height="50">#}
+                                    {#</a>#}
+                                {#{% endfor %}#}
+                            {#</td>#}
+                            {#<td>#}
+                                {#{% for equipment in room.equipments %}#}
+                                    {#<span><i class="fa fa-{{ equipment.icon }}"></i><em>{{ equipment.name }}</em></span>#}
+                                {#{% endfor %}#}
+                            {#</td>#}
+                            <td class="d-inline-flex">
+                                {#<a href="{{ path('room_equipment_show', {'id': room_equipment.id}) }}">show</a>#}
+                                {#<a href="{{ path('app_bbr_admin_room_booking_edit', {'room': room.id}) }}" class="btn btn-sm btn-success mx-3">Update</a>#}
+                                {{ include('admin/room_booking/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block title %}BBR restauration{% endblock %}
+
+{% block body %}
+      <!-- ========== REVOLUTION SLIDER ========== -->
+      <div id="rev-slider-restaurant" class="rev_slider gradient-slider" data-version="5.4.5">
+        <ul>
+          <!-- SLIDE -->
+          <li data-transition="fade">
+            <!-- MAIN IMAGE -->
+            <img src="images/restaurant/restaurant.jpg" alt="Image" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina="data-no-retina">
+            <!-- LAYER NR. 1 -->
+            <div
+              class="tp-caption"
+              data-x="['center','center','center','center']"
+              data-hoffset=""
+              data-y="['middle','middle','middle','middle']"
+              data-voffset=""
+              data-responsive_offset="on"
+              data-fontsize="['40','32','28','22']"
+              data-lineheight="['40','32','28','22']"
+              data-whitespace="nowrap"
+              data-frames='[{"delay":0,"speed":1500,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+              style="color: #fff; font-weight: 700; font-family: 'Raleway', sans-serif;">Bienvenue à BBr. RESTAURANT
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- ========== MAIN ========== -->
+      <main class="restaurant">
+        <div class="container">
+          <h2 class="text-uppercase mt40 mb20 text-center">BBR Restauration</h2>
+          <div class="entry">
+            <p>
+            </p>
+            <h4 class="text-uppercase mt40 mb20">MENU DU JOUR</h4>
+            <div class="row">
+              <!-- ITEM -->
+                {% for restaurant in restaurants %}
+                  <div class="col-md-6 col-sm-6 col-6">
+                    <div class="restaurant-menu-item">
+                      <div class="row">
+                        <div class="col-lg-4 col-12">
+                          <figure>
+                            <img src="{{ vich_uploader_asset(restaurant, 'imageFile') }}" class="img-fluid " alt="Image">
+                          </figure>
+                        </div>
+                        <div class="col-lg-8 col-12">
+                          <div class="info">
+                            <div class="title">
+                              <span class="name">{{ restaurant.title }}</span>
+                              <span class="price">
+                                    <span class="amount">{{ restaurant.price | number_format(0,' ',' ') }} xof</span>
+                              </span>
+                            </div>
+                            <p>{{ restaurant.subtitle |raw|raw}}
+                            </p>
+                            <p>{{ restaurant.description|raw|raw }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+
+                <hr>
+            </div>
+            {#<div class="row pagination justify-content-center">#}
+                {#{{ knp_pagination_render(restaurants) }}#}
+            {#</div>#}
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quia itaque accusantium voluptatibus esse animi tenetur adipisci! Iure cumque aliquam tempore quam, asperiores obcaecati architecto earum vitae a commodi ratione velit nesciunt
+              animi at dolore illo fugit magnam labore totam eveniet aut sapiente sequi nam doloremque impedit. Corrupti at, maxime, facere quibusdam consequatur aperiam sapiente eveniet ducimus veniam fugit recusandae commodi id placeat! Delectus ullam, sed ea
+              laborum tempore velit vitae, quae suscipit mollitia enim nostrum cupiditate temporibus molestias repellat dignissimos eveniet quam dicta. Illo maiores aspernatur, temporibus! Accusantium fuga omnis sapiente non. At nostrum, tenetur similique adipisci
+              voluptatem mollitia, cum neque autem labore sapiente dolore accusantium et excepturi odit iusto corporis, facere inventore obcaecati incidunt, est quam. Maiores aliquid cupiditate tenetur aut fugit! Quis deleniti nesciunt at officiis! Iusto
+              recusandae numquam ratione excepturi perspiciatis cumque nisi, explicabo dolorum alias ipsum voluptates non, possimus! Voluptatem adipisci dolor quos tenetur placeat?</p>
+
+          </div>
+        </div>
+      </main>
+      <!-- ========== FOOTER ========== -->
+{% endblock %}

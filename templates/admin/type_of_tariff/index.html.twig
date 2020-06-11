@@ -1,0 +1,60 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Administration des type de tarif{% endblock %}
+
+{% block body %}
+    <div class="container col-md-12 justify-content-center align-items-center">
+
+        <h1 class="text-center">Liste des type de tarif</h1>
+        <div class="justify-content-center">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <a href="{{ path('app_bbr_admin_type_of_tariff_new') }}" class="btn btn-sm btn-primary float-right">Enregistrer
+                        un type de tarif</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Titre type_of_tariff</th>
+                                <th>Crée le</th>
+                                {#<th>Mise à jours le</th>#}
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Titre </th>
+                                <th>Crée le</th>
+                                {#<th>Mise à jours le</th>#}
+                                <th>Actions</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for type_of_tariff in type_of_tariffs %}
+                                <tr>
+                                    <td>{{ type_of_tariff.title }}</td>
+                                    <td>{{ type_of_tariff.createdAt ? type_of_tariff.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    {#<td>{{ type_of_tariff.updatedAt ? type_of_tariff.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
+                                    <td class="d-inline-flex">
+                                        <a href="{{ path('app_bbr_admin_type_of_tariff_edit', {'id': type_of_tariff.id}) }}"
+                                           class="btn btn-sm btn-success mx-3">Edit</a>
+                                        {{ include('admin/type_of_tariff/_delete_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7">Aucun type de tarif  enregistré</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{{ path('app_bbr_admin_type_of_tariff_new') }}" class="btn btn-primary btn-sm">Créer un nouveau type de tarif</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{{ form_start(form) }}
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.title) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.class) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.dataX) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.dataHoffset) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.dataY) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.dataVoffset) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.dataResponsiveOffset) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.dataWhitespace) }}
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+    <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

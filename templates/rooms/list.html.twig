@@ -1,0 +1,7 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block body %}
+    {% for room in rooms %}
+        <a href="{{ path('app_bbr_room_booking',{'room':room.id}) }}">{{ room.title }}</a>
+    {% endfor %}
+{% endblock %}

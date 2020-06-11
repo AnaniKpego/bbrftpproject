@@ -1,0 +1,59 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Equipements de chambre{% endblock %}
+
+{% block body %}
+<div class="container col-md-12 justify-content-center align-items-center">
+
+    <h1 class="text-center">Liste des équipements de chambre</h1>
+    <div class="justify-content-center">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{{ path('app_bbr_admin_room_equipment_new') }}" class="btn btn-sm btn-primary float-right">Enregistrer un equipement</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Identifiant equipement</th>
+                            <th>Nom equipement</th>
+                            <th>Icon equipement</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Identifiant equipement</th>
+                            <th>Nom equipement</th>
+                            <th>Icon equipement</th>
+                            <th>Actions</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for room_equipment in room_equipments %}
+                            <tr>
+                                <td>{{ room_equipment.id }}</td>
+                                <td>{{ room_equipment.name }}</td>
+                                <td class="text-center" title="{{ room_equipment.icon }} icon"><i class="fa fa-{{ room_equipment.icon }}"></i></td>
+                                <td class="d-inline-flex">
+                                    {#<a href="{{ path('room_equipment_show', {'id': room_equipment.id}) }}">show</a>#}
+                                    <a href="{{ path('app_bbr_admin_room_equipment_edit', {'id': room_equipment.id}) }}" class="btn btn-sm btn-success mx-3">Update</a>
+                                    {{ include('admin/room_equipment/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">Aucun équipement trouvé</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    <a href="{{ path('app_bbr_admin_room_equipment_new') }}" class="btn btn-primary btn-sm">Créer un nouvel équipement</a>
+    </div>
+</div>
+{% endblock %}

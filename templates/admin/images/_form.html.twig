@@ -1,0 +1,23 @@
+{{ form_start(form) }}
+<div class="form-group">
+    <div class="col-sm-12 mb-3">
+        {{ form_label(form.imageFile) }}
+        {{ form_errors(form.imageFile) }}
+        {{ form_widget(form.imageFile) }}
+    </div>
+    <div class="col-sm-12 mb-3 mb-sm-0">
+        {{ form_label(form.title) }}
+        {{ form_errors(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+    <div class="col-sm-12 mb-3 mb-sm-0">
+        {{ form_label(form.legend) }}
+        {{ form_errors(form.legend) }}
+        {{ form_widget(form.legend) }}
+    </div>
+    <div class="col-sm-6 mt-3 mb-sm-0">
+        <button type="submit" class="btn btn-success btn-sm">Valider</button>
+    </div>
+</div>
+
+{{ form_end(form) }}

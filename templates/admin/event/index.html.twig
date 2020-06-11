@@ -1,0 +1,85 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Administration des events {% endblock %}
+
+{% block body %}
+    <div class="container col-md-12 justify-content-center align-items-center">
+
+        <h1 class="text-center">Liste des Events</h1>
+        <div class="justify-content-center">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    {#<h6 class="m-0 font-weight-bold text-primary">Cette table contient tous les Menu enregistrés</h6>#}
+                    <a href="{{ path('app_bbr_admin_event_new') }}" class="btn btn-sm btn-primary float-right"> New event</a>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Date de déroulement</th>
+                                <th>Image</th>
+                                <th>Tarif(s)</th>
+                                <th>Résumé</th>
+                                <th>Description</th>
+                                <th>Crée le</th>
+                                <th>Mise à jours le</th>
+                                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Date de déroulement</th>
+                                <th>Image</th>
+                                <th>Tarif(s)</th>
+                                <th>Résumé</th>
+                                <th>Description</th>
+                                <th>Crée le</th>
+                                <th>Mise à jours le</th>
+                                <th>actions</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for event in events %}
+                                <tr>
+                                    <td>{{ event.title }}</td>
+                                    <td>{{ event.phone }}</td>
+                                    <td>{{ event.email }}</td>
+                                    <td>{{ event.startAt ? event.startAt|date('d-m-Y H:i:s') : '' }}</td>
+                                    <td class="img-fluid"><img src="{{  vich_uploader_asset(event,'imageFile') }}" style="width:100px; height: auto;" alt=""> </td>
+                                    <td>
+                                        {% for tariff in event.tariffs %}
+                                            {{ tariff.title }} - {{ tariff.getFormatPrice() }}
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{ event.subtitle |raw|raw }}</td>
+                                    <td>{{ event.description |raw|raw }}</td>
+                                    <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td class="d-inline-flex">
+                                        {#<a href="{{ path('app_bbr_admin_article_show', {'id': article.id}) }}">show</a>#}
+                                        <a href="{{ path('app_bbr_admin_event_edit', {'id': event.id}) }}" class="btn btn-sm btn-success mx-3">Update</a>
+                                        {{ include('admin/event/_delete_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">Aucun enregistrement trouvé</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

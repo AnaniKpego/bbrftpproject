@@ -1,0 +1,14 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-gradient-light">
+            <div class="modal-body">
+               <p class="text-black-50"> Veuillez valider votre reservation pour l'évènement <em>{{ event.title }}</em> en appuyant sur le bouton "Je réserve" </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                <a type="button" href="{{ path('app_bbr_event_booking_new',{'event': event.id}) }}" class="btn btn-primary"> Je réserve</a>
+            </div>
+        </div>
+    </div>
+</div>

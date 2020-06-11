@@ -1,0 +1,167 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Réserver la {{ room.title }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container m-5">
+        <h3 class="text-center m-3">Réservation de la chambre: <em>{{ room.title }}</em></h3>
+
+
+        <div class="room-list-item">
+            <div class="row">
+                <div class="col-lg-4">
+                    <figure class="gradient-overlay-hover link-icon">
+                        <a href="{{ path('app_bbr_room_show',{'id' : room.id}) }}" class="d-inline-block w-100">
+                            <img src="{{ vich_uploader_asset(room.mainImage, 'imageFile') }}"
+                                 class="room-image img-fluid" alt="Image">
+                        </a>
+                    </figure>
+                </div>
+                <div class="col-lg-6">
+                    <div class="room-info">
+                        <h3 class="room-title">
+                            <a href="#">{{ room.title }}</a>
+                        </h3>
+                        <span class="room-rates">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <a href="#room-reviews">5.00 Based on 3 Ratings</a>
+                                  </span>
+                        <p>{{ room.summary|raw|raw }}...</p>
+                        <div class="room-services">
+                            {% for equipment in room.equipments %}
+                                <i class="fa fa-{{ equipment.icon }}" data-toggle="popover" data-placement="top"
+                                   data-trigger="hover"
+                                   data-content="{{ equipment.name }} Inclu"
+                                   data-original-title="{{ equipment.name }}">
+
+                                </i>
+                            {% endfor %}
+                            <span>Beds: 1 King</span>
+                            <span>Pour: {{ room.guestPlaceCount }} personne(s)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="room-price">
+                                <span class="price">{{ room.weekPrice | number_format(0,',',' ') }}
+                                    xof / nuit(semaine)</span>
+                        <span class="price">{{ room.weekendPrice | number_format(0,',',' ') }}xof / nuit(weekend)</span>
+                        <a href="{{ path('app_bbr_room_show',{'id' : room.id}) }}"
+                           class="btn btn-sm">DETAILS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <div class="card box-shadow-04">
+           <div class="card-header text-center">
+               <h3>Bbr Reservation </h3>
+           </div>
+           <div class="card-title text-center">
+                Reservation de {{ room.title }}
+           </div>
+           <div class="card-body">
+               {{ form_start(form) }}
+               <div class="alert alert-light">
+                   <div class="row">
+                       <div class="col">
+                           {{ form_row(form.startedAt) }}
+                       </div>
+                       <div class="col">
+                           {{ form_row(form.endedAt) }}
+                       </div>
+                   </div>
+                   <h4 class="mt-2">Montant du séjour : <span id="amount">...</span> xof</h4>
+                   <div>
+                       <span id="days-week">0</span> nuit(s) à {{ room.weekPrice | number_format(2, ',', ' ') }} xof par
+                       nuit (Pendant la semaine)
+                   </div>
+                   <div>
+                       <span id="days-weekend">0</span> nuit(s) à {{ room.weekendPrice | number_format(2, ',', ' ') }} xof
+                       par nuit (Pendant le weekend)
+                   </div>
+               </div>
+
+               <button type="submit" class="btn btn-success">Je réserve !</button>
+
+               {{ form_end(form) }}
+           </div>
+           <div class="card-footer">
+               <p class="text-center"> Merci !</p>
+           </div>
+
+       </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#room_booking_startedAt, #room_booking_endedAt').datepicker({
+                format: 'dd/mm/yyyy',
+                datesDisabled: [
+                    {% for day in room.notAvailableDays %}
+                    "{{ day.format('d/m/Y') }}",
+                    {% endfor %}
+                ],
+                startDate: new Date()
+            });
+
+            $('#room_booking_startedAt, #room_booking_endedAt').on('change', calculateAmount);
+        });
+
+        function calculateAmount() {
+            // On chope les dates
+            const endDate = new Date(
+                $('#room_booking_endedAt')
+                    .val()
+                    .replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1')
+            );
+
+            const startDate = new Date(
+                $('#room_booking_startedAt')
+                    .val()
+                    .replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1')
+            );
+
+            if (startDate && endDate && startDate < endDate) {
+                const DAY_TIME = 24 * 60 * 60 * 1000;
+
+                const interval = endDate.getTime() - startDate.getTime();
+                const days = interval / DAY_TIME;
+
+                let weekDays = 0, weekendDays = 0;
+
+                for (let i = 0; i < days; i++) {
+                    let date = new Date(startDate.getTime() + i * DAY_TIME);
+                    if (date.getDay() === 6 || date.getDay() === 0) {
+                        weekendDays++;
+                    } else {
+                        weekDays++;
+                    }
+                }
+
+                const amount = weekDays * {{ room.weekPrice }} +weekendDays * {{ room.weekendPrice }};
+
+                $('#days-week').text(weekDays);
+                $('#days-weekend').text(weekendDays);
+                $('#amount').text(amount.toLocaleString('fr-FR'));
+            }
+        }
+
+    </script>
+
+{% endblock %}

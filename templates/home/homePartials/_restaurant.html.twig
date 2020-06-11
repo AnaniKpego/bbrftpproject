@@ -1,0 +1,37 @@
+<section class="restaurant image-bg parallax gradient-overlay op5" data-src="{{ asset('/assets/images/restaurant.jpg') }}" data-parallax="scroll" data-speed="0.3" data-mirror-selector=".wrapper" data-z-index="0">
+    <div class="container">
+        <div class="section-title">
+            <p class="section-subtitle"><h2>BBr RESTAURANT MENUS</h2></p>
+            <a href="{{ path('app_bbr_restaurants') }}" class="view-all uppercase">VOIR PLUS</a>
+        </div>
+        <div class="row">
+            <!-- ITEM -->
+            {% for restaurant in restaurants %}
+            <div class="col-md-6 col-sm-6 col-6">
+                <div class="restaurant-menu-item">
+                    <div class="row">
+                        <div class="col-lg-4 col-12">
+                            <figure>
+                                <img src="{{ vich_uploader_asset(restaurant, 'imageFile') }}" class="img-fluid " alt="Image">
+                            </figure>
+                        </div>
+                        <div class="col-lg-8 col-12">
+                            <div class="info">
+                                <div class="title">
+                                    <span class="name">{{ restaurant.title }}</span>
+                                    <span class="price">
+                          <span class="amount">{{ restaurant.price | number_format(0,' ',' ') }} xof</span>
+                        </span>
+                                </div>
+                                <p>{{ restaurant.subtitle|raw|raw }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- ITEM -->
+        </div>
+    </div>
+</section>

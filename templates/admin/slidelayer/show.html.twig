@@ -1,0 +1,58 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Administration d'un slide layer{% endblock %}
+
+{% block body %}
+<div class="container col-md-12 justify-content-center align-items-center">
+
+    <h4 class="text-center">Info slide layer </h4>
+    <div class="justify-content-center">
+        <div class="card shadow mb-4">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <td>{{ slidelayer.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Class</th>
+                        <td>{{ slidelayer.class }}</td>
+                    </tr>
+                    <tr>
+                        <th>Data-X</th>
+                        <td>{{ slidelayer.dataX }}</td>
+                    </tr>
+                    <tr>
+                        <th>Data Hoffset</th>
+                        <td>{{ slidelayer.dataHoffset }}</td>
+                    </tr>
+                    <tr>
+                        <th>Data-Y</th>
+                        <td>{{ slidelayer.dataY }}</td>
+                    </tr>
+                    <tr>
+                        <th>Data Voffset</th>
+                        <td>{{ slidelayer.dataVoffset }}</td>
+                    </tr>
+                    <tr>
+                        <th>Data Responsive Offset</th>
+                        <td>{{ slidelayer.dataResponsiveOffset }}</td>
+                    </tr>
+                    <tr>
+                        <th>Data White space</th>
+                        <td>{{ slidelayer.dataWhitespace }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="{{ path('app_bbr_admin_slidelayer_index') }}">back to list</a>
+
+            <a href="{{ path('app_bbr_admin_slidelayer_edit', {'id': slidelayer.id}) }}">edit</a>
+
+            {{ include('admin/slidelayer/_delete_form.html.twig') }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

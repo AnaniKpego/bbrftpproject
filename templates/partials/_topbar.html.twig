@@ -1,0 +1,66 @@
+<div class="topbar">
+    <div class="container">
+        <div class="welcome-mssg">
+            Bienvenue à Boulay Beach Resort.
+        </div>
+        <div class="top-right-menu">
+            <ul class="top-menu">
+                <li class="d-none d-md-inline">
+                    <a href="tel:+22507977373">
+                        <i class="fa fa-phone"></i>+225 079 773 73
+                    </a>
+                </li>
+                <li class="d-none d-md-inline">
+                    <a href="mailto:reservation@boulaybeachresort.com">
+                        <i class="fa fa-envelope-o "></i>reservation@boulaybeachresort.com</a>
+                </li>
+                {#<li class="language-menu">#}
+                    {#<a href="#" class="active-language"><img src="{{ asset('/assets/images/icons/flags/fr.png') }}" alt="Image">Français</a>#}
+                    {#<ul class="languages">#}
+                        {#<li class="language">#}
+                            {#<a href="#"><img src="{{ asset('/assets/images/icons/flags/it.png') }}" alt="Image">Italiano</a>#}
+                        {#</li>#}
+                        {#<li class="language">#}
+                            {#<a href="#"><img src="{{ asset('/assets/images/icons/flags/gr.png') }}" alt="Image">Ελληνικα</a>#}
+                        {#</li>#}
+                        {#<li class="language">#}
+                            {#<a href="#"><img src="{{ asset('/assets/images/icons/flags/al.png') }}" alt="Image">Shqip</a>#}
+                        {#</li>#}
+                        {#<li class="language">#}
+                            {#<a href="#"><img src="{{ asset('/assets/images/icons/flags/fr.png') }}" alt="Image">Français</a>#}
+                        {#</li>#}
+                        {#<li class="language">#}
+                            {#<a href="#"><img src="{{ asset('/assets/images/icons/flags/es.png') }}" alt="Image">Español</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</li>#}
+
+                <li class="language-menu">
+                    <a href="https://pro.rdv360.com/" target="_blank" class="active-language">Allez sur rdv360.com</a>
+                </li>
+                {% if app.user %}
+                <li class="language-menu">
+                    <a href="{{ path('app_bbr_event_index') }}" class="active-language">{{ app.user.firstName }}</a>
+                    <ul class="languages">
+                        <li class="language">
+                            <a href="{{ path('app_bbr_account_profile') }}">Profile</a>
+                        </li>
+                        <li class="language">
+                            <a href="{{ path('app_bbr_account_logout') }}">Déconnexion</a>
+                        </li>
+
+                    </ul>
+                </li>
+                {% else %}
+                    <li class="language-menu">
+                        <a href="{{ path('app_bbr_account_login') }}" class="active-language">Connexion</a>
+                    </li>
+                    <li class="language-menu">
+                        <a href="{{ path('app_bbr_register') }}" class="active-language">Inscription</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</div>

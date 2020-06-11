@@ -1,0 +1,36 @@
+
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_row(form.name) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_row(form.phone) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_row(form.email) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_row(form.subject) }}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                {{ form_row(form.message) }}
+            </div>
+        </div>
+    {{ form_rest(form) }}
+        <div class="col-md-12">
+            <div class="form-group">
+                <button class="btn mt30">{{ button_label|default('ENVOYEZ VOTRE MESSAGE') }}</button>
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}

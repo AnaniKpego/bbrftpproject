@@ -1,0 +1,53 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .room-image{
+            object-position: top;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .gallery-image{
+            object-position: center;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            -o-object-fit: cover;
+        }
+
+
+    </style>
+{% endblock %}
+{% block title %}Bienvenue à Boulay Beach Resort{% endblock %}
+
+{% block body %}
+    <!-- ========== REVOLUTION SLIDER ========== -->
+    {% include 'home/homePartials/_slider.html.twig' %}
+    <!-- ========== ABOUT ========== -->
+    {#{% include'home/homePartials/_about.html.twig' %}#}
+    <!-- ========== ROOMS ========== -->
+    {% include'home/homePartials/_rooms.html.twig' %}
+    <!-- ========== SERVICES ========== -->
+    {% include'home/homePartials/_services.html.twig' %}
+    <!-- ========== RESTAURANT ========== -->
+    {% include'home/homePartials/_restaurant.html.twig' %}
+    <!-- ========== GALLERY ========== -->
+    {% include'home/homePartials/_galerie.html.twig' %}
+    <!-- ========== TESTIMONIALS ========== -->
+    {#{% include'home/homePartials/_testimonials.html.twig' %}#}
+
+    <!-- ========== EVENTS ========== -->
+    {% include'home/homePartials/_events.html.twig' %}
+    <!-- ========== NEWS ==========-->
+    {% include'home/homePartials/_news.html.twig' %}
+
+    <!-- ========== VIDEO ========== -->
+    {#{% include'home/homePartials/_video.html.twig' %}#}
+
+    <!-- ========== CONTACT V2 ========== -->
+    {#{% include'home/homePartials/_contact.html.twig' %}#}
+    <!-- ========== INSTAGRAM ========== -->
+    {% include'home/homePartials/_instagram.html.twig' %}
+
+{% endblock %}

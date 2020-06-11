@@ -1,0 +1,168 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block title %}BBR évènements{% endblock %}
+
+{% block body %}
+
+    <!-- ========== HEADER ========== -->
+
+    <!-- ========== REVOLUTION SLIDER ========== -->
+    <!-- ========== REVOLUTION SLIDER ========== -->
+    <div id="rev-slider-1" class="rev_slider gradient-slider" data-version="5.4.5">
+        <ul>
+            <!-- SLIDE -->
+            <li data-transition="crossfade">
+                <!-- MAIN IMAGE -->
+                <img src="{{ vich_uploader_asset(event,'imageFile') }}" alt="Image" title="Image" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina="">
+                <!-- LAYER NR. 1 -->
+                {#<h6#}
+                        {#class="tp-caption tp-resizeme"#}
+                        {#data-x="center"#}
+                        {#data-hoffset=""#}
+                        {#data-y="200"#}
+                        {#data-voffset=""#}
+                        {#data-responsive_offset="on"#}
+                        {#data-fontsize="['80','50','40','30']"#}
+                        {#data-lineheight="['60','50','40','30']"#}
+                        {#data-whitespace="nowrap"#}
+                        {#data-frames='[{"delay":1000,"speed":1500,"frame":"0","from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'#}
+                        {#style="z-index: 5; color: #fff; font-weight: 200;">#}
+                    {#{{ event.title }}</h6>#}
+
+                <!-- LAYER NR. 3 -->
+                <div
+                        class="tp-caption"
+                        data-x="center"
+                        data-hoffset="-120"
+                        data-y="450"
+                        data-voffset=""
+                        data-responsive_offset="on"
+                        data-whitespace="nowrap"
+                        data-frames='[{"delay":2400,"speed":1500,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                        style="z-index: 11;">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fa fa-calendar"></i>RESERVEZ VOTRE TICKET
+                    </button>
+                </div>
+                <!-- LAYER NR. 4 -->
+                <div
+                        class="tp-caption"
+                        data-x="center"
+                        data-hoffset="128"
+                        data-y="450"
+                        data-voffset=""
+                        data-responsive_offset="on"
+                        data-whitespace="nowrap"
+                        data-frames='[{"delay":2400,"speed":1500,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                        style="z-index: 11;">
+                    <a class="btn" href="{{ path('app_bbr_contact_new') }}">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>NOUS CONTACTER
+                    </a>
+                </div>
+                <!-- LAYER NR. 2 -->
+                <div
+                        class="tp-caption"
+                        data-x="['center','center','center','center']"
+                        data-hoffset=""
+                        data-y="['280','280','280','280']"
+                        data-voffset=""
+                        data-responsive_offset="on"
+                        data-whitespace="nowrap"
+                        data-frames='[{"delay":0,"speed":1500,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'>
+                    <div id="countdown" data-countdown="{{ event.startAt ? event.startAt | date('Y-m-d H:i:s') : '' }}"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- ========== MAIN ========== -->
+    <main class="restaurant">
+        <div class="container">
+            <div class="entry">
+                <!-- BOOKING FORM -->
+                <div class="row">
+                    <div class="vertical-booking-form entry-booking-form-left col-md-4">
+                        <h3 class="form-title">RESERVER VOTRE TICKET</h3>
+                        <div class="inner">
+                            <form id="booking-form">
+                                Date:
+                                <div class="form-group">
+                                   <h4> <i class="fa fa-calendar"></i> {{ event.startAt ? event.startAt|date('d-m-y') }} - <i class="fa fa-clock-o"></i> {{ event.startAt ? event.startAt|date('h:i') }}</h4>
+                                </div>
+
+                                <div class="form-group" style="display:none;">
+                                    <select class="form-control" name="booking-roomtype" title="Select Room Type"
+                                            data-header="Room Type" disabled="disabled">
+                                        <option value="Offer" selected="selected">Offer</option>
+                                    </select>
+                                </div>
+                                <!-- GUESTS -->
+                                <div class="form-group">
+                                    <div class="panel-dropdown">
+                                        <div class="form-control guestspicker">Nombre de personne
+                                            <span class="gueststotal"></span></div>
+                                        {#<div class="panel-dropdown-content">#}
+                                            {#<div class="guests-buttons">#}
+                                                {#<label>Adultes#}
+                                                    {#<a href="#" title="" data-toggle="popover" data-placement="top"#}
+                                                       {#data-trigger="hover" data-content="18+ years"#}
+                                                       {#data-original-title="Adults">#}
+                                                        {#<i class="fa fa-info-circle"></i>#}
+                                                    {#</a>#}
+                                                {#</label>#}
+                                                {#<div class="guests-button">#}
+                                                    {#<div class="minus"></div>#}
+                                                    {#<input type="text" name="booking-adults" class="booking-guests"#}
+                                                           {#value="0">#}
+                                                    {#<div class="plus"></div>#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                            {#<div class="guests-buttons">#}
+                                                {#<label>Enfants#}
+                                                    {#<a href="#" title="" data-toggle="popover" data-placement="top"#}
+                                                       {#data-trigger="hover" data-content="Under 18 years"#}
+                                                       {#data-original-title="Children">#}
+                                                        {#<i class="fa fa-info-circle"></i>#}
+                                                    {#</a>#}
+                                                {#</label>#}
+                                                {#<div class="guests-button">#}
+                                                    {#<div class="minus"></div>#}
+                                                    {#<input type="text" name="booking-children" class="booking-guests"#}
+                                                           {#value="0">#}
+                                                    {#<div class="plus"></div>#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    </div>
+                                </div>
+                                <!-- BOOKING BUTTON -->
+                                <button type="button" class="btn btn-lg btn-book btn-dark" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Je reserve
+                                </button>
+                                <div class="mt20"></div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="section-title">
+                            <h2 class="text-center">{{event.title  }}</h2>
+                            <p class="section-subtitle">{{ event.subtitle|raw|raw }}</p><br>
+                            <p>{{ event.description |raw|raw}}.</p>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    {% include('events/event-tariffs-table.html.twig') %}
+                </div>
+
+            </div>
+        </div>
+    </main>
+    {% include('events/event_modal.html.twig') %}
+
+{% endblock %}
+
+

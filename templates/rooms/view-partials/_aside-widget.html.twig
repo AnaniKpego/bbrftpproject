@@ -1,0 +1,28 @@
+<aside class="widget">
+    <h4 class="widget-title">Bbr events</h4>
+    <div class="latest-posts">
+        {% for event in events %}
+        <!-- ITEM -->
+        <div class="latest-post-item">
+            <div class="row">
+                <div class="col-5">
+                    <figure class="gradient-overlay-hover link-icon sm">
+                        <a href="{{path('app_bbr_event_show',{'id': event.id})  }}">
+                            <img src="{{ vich_uploader_asset(event,'imageFile') }}" class="img-fluid" alt="Image">
+                        </a>
+                    </figure>
+                </div>
+                <div class="col-7">
+                    <div class="post-details">
+                        <h6 class="post-title">
+                            <a href="{{ path('app_bbr_event_show',{'id': event.id}) }}">{{ event.title }}</a>
+                            <hr>
+                            <i class="fa fa-calendar"></i> {{ event.startAt ? event.startAt|date('d-m-y') }} - <i class="fa fa-clock-o"></i> {{ event.startAt ? event.startAt|date('h:i') }}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</aside>

@@ -1,0 +1,72 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}Administration des Menus{% endblock %}
+
+{% block body %}
+    <div class="container col-md-12 justify-content-center align-items-center">
+
+        <h1 class="text-center">Liste des Menus</h1>
+        <div class="justify-content-center">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    {#<h6 class="m-0 font-weight-bold text-primary">Cette table contient tous les Menu enregistrés</h6>#}
+                    <a href="{{ path('app_bbr_restaurant_new') }}" class="btn btn-sm btn-primary float-right">Enregistrer un menu</a>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prix</th>
+                                <th>Résumé</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th>Crée le</th>
+                                <th>Mise à jours le</th>
+                                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prix</th>
+                                <th>Résumé</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th>Crée le</th>
+                                <th>Mise à jours le</th>
+                                <th>actions</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for restaurant in restaurants %}
+                                <tr>
+                                    <td>{{ restaurant.title }}</td>
+                                    <td>{{ restaurant.price |number_format(0,'', ' ') }} xof</td>
+                                    <td>{{ restaurant.subtitle|raw|raw }}</td>
+                                    <td>{{ restaurant.description|raw|raw }}</td>
+                                    <td class="img-fluid"><img src="{{ vich_uploader_asset(restaurant,'imageFile') }}" style="width:100px; height: auto;" alt=""> </td>
+                                    <td>{{ restaurant.createdAt ? restaurant.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>{{ restaurant.updatedAt ? restaurant.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td class="d-inline-flex">
+                                        {#<a href="{{ path('app_bbr_admin_article_show', {'id': article.id}) }}">show</a>#}
+                                        <a href="{{ path('app_bbr_restaurant_edit', {'id': restaurant.id}) }}" class="btn btn-sm btn-success mx-3">Update</a>
+                                        {{ include('admin/restaurant/_delete_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">Aucun enregistrement trouvé</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

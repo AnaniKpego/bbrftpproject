@@ -1,0 +1,79 @@
+{% extends 'admin/layout/base.html.twig' %}
+{% block title %}BBr Users{% endblock %}
+{% block body %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800 text-center">Table Utilisateurs et Administrateurs</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Prenom</th>
+                            <th>Nom</th>
+                            <th>Telephone</th>
+                            <th>Email</th>
+                            <th>Addresse</th>
+                            <th>Ville</th>
+                            <th>Role(s)</th>
+                            <th>Satus</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Prenom</th>
+                            <th>Nom</th>
+                            <th>Telephone</th>
+                            <th>Email</th>
+                            <th>Addresse</th>
+                            <th>Ville</th>
+                            <th>Role(s)</th>
+                            <th>Satus</th>
+                            <th>Actions</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.lastName }}</td>
+                            <td>{{ user.phone }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.address }}</td>
+                            <td>{{ user.city }}</td>
+
+                            <td>
+                                {% for userRoles in user %}
+                                {{ userRoles.role }}
+                                {% endfor %}
+                            </td>
+
+                            <td class="text-center">{% if(user.status == 1) %}
+                                <i class="fa fa-user-check text-success"></i>
+                                {% else %}
+                                <i class="fa fa-user-clock text-danger"></i>
+                                {% endif %}
+                            </td>
+                            <td class="d-inline-flex text-center">
+                                <a class="btn btn-warning btn-sm" href="{{ path('app_bbr_admin_user_edit_roles', {'user':user.id})}}"><i class="fa fa-user-edit" title="Modifier"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock %}

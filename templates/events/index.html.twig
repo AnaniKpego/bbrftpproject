@@ -1,0 +1,61 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block title %}BBR events{% endblock %}
+
+{% block body %}
+
+      <div class="page-title gradient-overlay op6" style="background: url({{ asset('/assets/images/breadcrumb.jpg') }}); background-repeat: no-repeat;
+          background-size: cover;">
+        <div class="container">
+          <div class="inner">
+            <h1>NOS EVENTS</h1>
+            <ol class="breadcrumb">
+              <li>
+                <a href="/">Accueil</a>
+              </li>
+              <li> Events</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    <!-- ========== MAIN ========== -->
+    <main class="rooms-grid-view">
+        <div class="container">
+            <div class="row">
+                {% for event in events %}
+                <!-- ITEM -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="room-grid-item">
+                        <figure class="gradient-overlay-hover link-icon">
+                            <a href="{{path('app_bbr_event_show',{'id': event.id})  }}">
+                                <img src="{{ vich_uploader_asset(event,'imageFile') }}" class="img-fluid" alt="Image">
+                            </a>
+                            <div class="room-services pb-5">
+                                <i class="fa fa-phone" aria-hidden="true" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="{{ event.phone }}3" data-original-title="Reservation par appel"></i>
+                                <i class="fa fa-envelope" aria-hidden="true" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="{{ event.email }}" data-original-title="Reservation par mail"></i>
+                            </div>
+                            <div class="room-price"> <i class="fa fa-calendar"></i> {{ event.startAt ? event.startAt|date('d-m-y') }} - <i class="fa fa-clock-o"></i> {{ event.startAt ? event.startAt|date('h:i') }}</div>
+                        </figure>
+                        <div class="room-info">
+                            <h2 class="room-title">
+                                <a href="{{ path('app_bbr_event_show',{'id': event.id}) }}">{{ event.title }}</a>
+                            </h2>
+                            <p>{{ event.subtitle |raw|raw }}</p>
+                            <div class="align-center">
+                                <a class="btn btn-sm btn-dark" href="{{ path('app_bbr_event_show',{'id': event.id}) }}">PLUS DE DETAILS</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ITEM -->
+                {% endfor %}
+            </div>
+            <!-- PAGINATION -->
+            {#<div class="row pagination justify-content-center">#}
+                {#{{ knp_pagination_render(events) }}#}
+            {#</div>#}
+        </div>
+    </main>
+{% endblock %}
+
