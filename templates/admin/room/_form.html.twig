@@ -1,80 +1,76 @@
+{% form_theme form 'admin/room/_collection.html.twig' %}
 
-   {{ form_start(form) }}
-       <div class="form-group row">
-           <div class="col-sm-12 mb-3 mb-sm-0">
-               {{ form_label(form.title) }}
-               {{ form_errors(form.title) }}
-               {{ form_widget(form.title) }}
-           </div>
-       </div>
-        <div class="form-group row">
-            <div class="col-sm-12 mb-3">
-                {{ form_errors(form.mainImage) }}
-                {{ form_widget(form.mainImage) }}
-            </div>
+{{ form_start(form) }}
+<div class="form-group row">
+    <div class="col-sm-12 mb-3 mb-sm-0">
+        {{ form_label(form.title) }}
+        {{ form_errors(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-sm-6 mb-3 mb-sm-0">
+        {{ form_label(form.weekPrice) }}
+        {{ form_errors(form.weekPrice) }}
+        {{ form_widget(form.weekPrice) }}
+    </div>
+    <div class="col-sm-6 mb-3">
+        {{ form_label(form.weekendPrice) }}
+        {{ form_errors(form.weekendPrice) }}
+        {{ form_widget(form.weekendPrice) }}
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-sm-12 mb-3">
+        {{ form_label(form.summary) }}
+        {{ form_errors(form.summary) }}
+        {{ form_widget(form.summary) }}
+    </div>
 
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-6 mb-3 mb-sm-0">
-                {{ form_label(form.weekPrice) }}
-                {{ form_errors(form.weekPrice) }}
-                {{ form_widget(form.weekPrice) }}
-            </div>
-            <div class="col-sm-6 mb-3">
-                {{ form_label(form.weekendPrice) }}
-                {{ form_errors(form.weekendPrice) }}
-                {{ form_widget(form.weekendPrice) }}
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12 mb-3">
-                {{ form_label(form.summary) }}
-                {{ form_errors(form.summary) }}
-                {{ form_widget(form.summary) }}
-            </div>
+</div>
+<div class="form-group row">
 
-        </div>
-       <div class="form-group row">
+    <div class="col-sm-12 mb-3 mb-sm-0">
+        {{ form_label(form.description) }}
+        {{ form_errors(form.description) }}
+        {{ form_widget(form.description) }}
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-sm-4 mb-3">
+        {{ form_label(form.published) }}
+        {{ form_errors(form.published) }}
+        {{ form_widget(form.published) }}
+    </div>
+    <div class="col-sm-4 mb-3 mb-sm-0">
+        {{ form_label(form.guestPlaceCount) }}
+        {{ form_errors(form.guestPlaceCount) }}
+        {{ form_widget(form.guestPlaceCount) }}
+    </div>
+    <div class="col-sm-4 mb-3 mb-sm-0">
+        {{ form_label(form.equipments) }}
+        {{ form_errors(form.equipments) }}
+        {{ form_widget(form.equipments) }}
+    </div>
+</div>
 
-           <div class="col-sm-12 mb-3 mb-sm-0">
-               {{ form_label(form.description) }}
-               {{ form_errors(form.description) }}
-               {{ form_widget(form.description) }}
-           </div>
-       </div>
-        <div class="form-group row">
-            <div class="col-sm-4 mb-3">
-                {{ form_label(form.published) }}
-                {{ form_errors(form.published) }}
-                {{ form_widget(form.published) }}
-            </div>
-            <div class="col-sm-4 mb-3 mb-sm-0">
-                {{ form_label(form.guestPlaceCount) }}
-                {{ form_errors(form.guestPlaceCount) }}
-                {{ form_widget(form.guestPlaceCount) }}
-            </div>
-            <div class="col-sm-4 mb-3 mb-sm-0">
-                {{ form_label(form.equipments) }}
-                {{ form_errors(form.equipments) }}
-                {{ form_widget(form.equipments) }}
-            </div>
+<div class="form-group">
+    <div class="col-12">
+        {{ form_label(form.images) }}
+        {{ form_errors(form.images) }}
+        {{ form_widget(form.images) }}
+{#        <button type="button" id="add-image" class="btn btn-primary btn-sm">Ajouter une image</button>#}
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-sm-12 mb-3 mb-sm-0">
+        {{ form_widget(form) }}
+        <div class="d-inline-flex">
+            <button class="btn btn-success btn-sm mr-5">{{ button_label|default('Enregistrer') }}</button>
+            {#<button type="reset" class="btn btn-warning btn-sm mx-5">{{ button_label|default('Annuler') }}</button>#}
         </div>
-
-        <div class="form-group">
-            <div class="col-12">
-                {{ form_row(form.secondaryImages) }}
-                <button type="button" id="add-image" class="btn btn-primary btn-sm">Ajouter une image</button>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12 mb-3 mb-sm-0">
-            {{ form_widget(form) }}
-            <div class="d-inline-flex">
-                <button class="btn btn-success btn-sm mr-5">{{ button_label|default('Enregistrer') }}</button>
-                {#<button type="reset" class="btn btn-warning btn-sm mx-5">{{ button_label|default('Annuler') }}</button>#}
-            </div>
-            <button type="reset" class="btn btn-warning btn-sm">ANNULER</button>
-            </div>
-        </div>
-        <input type="hidden" id="widgets-counter" value="0">
-    {{ form_end(form) }}
+        <button type="reset" class="btn btn-warning btn-sm">ANNULER</button>
+    </div>
+</div>
+<input type="hidden" id="widgets-counter" value="0">
+{{ form_end(form) }}

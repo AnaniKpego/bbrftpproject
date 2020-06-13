@@ -57,17 +57,10 @@ class Room
     private $weekendPrice;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"rooms"})
-     */
-    private $mainImage;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="room")
      * @Groups({"rooms"})
      */
-    private $secondaryImages;
+    private $images;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RoomBooking", mappedBy="room", orphanRemoval=true)
@@ -98,7 +91,7 @@ class Room
 
     public function __construct()
     {
-        $this->secondaryImages = new ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->published = true;
         $this->equipments = new ArrayCollection();
@@ -197,43 +190,31 @@ class Room
         return $this;
     }
 
-    public function getMainImage(): ?Image
-    {
-        return $this->mainImage;
-    }
-
-    public function setMainImage(Image $mainImage): self
-    {
-        $this->mainImage = $mainImage;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Image[]
      */
-    public function getSecondaryImages(): Collection
+    public function getImages(): Collection
     {
-        return $this->secondaryImages;
+        return $this->images;
     }
 
-    public function addSecondaryImage(Image $secondaryImage): self
+    public function addImage(Image $image): self
     {
-        if (!$this->secondaryImages->contains($secondaryImage)) {
-            $this->secondaryImages[] = $secondaryImage;
-            $secondaryImage->setRoom($this);
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setRoom($this);
         }
 
         return $this;
     }
 
-    public function removeSecondaryImage(Image $secondaryImage): self
+    public function removeImage(Image $image): self
     {
-        if ($this->secondaryImages->contains($secondaryImage)) {
-            $this->secondaryImages->removeElement($secondaryImage);
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
             // set the owning side to null (unless already changed)
-            if ($secondaryImage->getRoom() === $this) {
-                $secondaryImage->setRoom(null);
+            if ($image->getRoom() === $this) {
+                $image->setRoom(null);
             }
         }
 
@@ -329,11 +310,6 @@ class Room
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->title;
-    }
-
     public function getFormatPrice($price){
         $price = number_format($price,0,' ',' ').' XOF';
 
@@ -372,5 +348,10 @@ class Room
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

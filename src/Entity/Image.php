@@ -3,13 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
- * @Vich\Uploadable
  */
 class Image
 {
@@ -22,22 +19,10 @@ class Image
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"rooms"})
      */
-    private $image;
-
-    /**
-     * @Vich\UploadableField(mapping="images", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"rooms"})
-     */
-    private $title;
+    private $path;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -46,9 +31,12 @@ class Image
     private $legend;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="secondaryImages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="images", cascade={"persist", "remove"})
      */
     private $room;
+
+    public $dataURL;
+    public $file;
 
     public function __construct()
     {
@@ -60,69 +48,67 @@ class Image
         return $this->id;
     }
 
-    public function getImage(): ?string
+    /**
+     * @return mixed
+     */
+    public function getPath()
     {
-        return $this->image;
+        return $this->path;
     }
 
-    public function setImage(string $image): self
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path): void
     {
-        $this->image = $image;
-
-        return $this;
+        $this->path = $path;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getLegend(): ?string
+    /**
+     * @return mixed
+     */
+    public function getLegend()
     {
         return $this->legend;
     }
 
-    public function setLegend(?string $legend): self
+    /**
+     * @param mixed $legend
+     */
+    public function setLegend($legend): void
     {
         $this->legend = $legend;
-
-        return $this;
     }
 
-    public function getRoom(): ?Room
+    /**
+     * @return mixed
+     */
+    public function getRoom()
     {
         return $this->room;
     }
 
-    public function setRoom(?Room $room): self
+    /**
+     * @param mixed $room
+     */
+    public function setRoom($room): void
     {
         $this->room = $room;
-
-        return $this;
     }
 
-    public function setImageFile(File $image = null)
+    /**
+     * @return mixed
+     */
+    public function getDataURL()
     {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
+        return $this->dataURL;
     }
 
-    public function getImageFile()
+    /**
+     * @param mixed $dataURL
+     */
+    public function setDataURL($dataURL): void
     {
-        return $this->imageFile;
+        $this->dataURL = $dataURL;
     }
 }

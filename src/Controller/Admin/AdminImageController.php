@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Controller\BaseController;
 use App\Entity\Image;
 use App\Form\ImageType;
+use App\Service\UploadImage;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,13 +34,14 @@ class AdminImageController extends BaseController
      * @Route("/new", name="new")
      * @param Request $request
      * @param EntityManagerInterface $manager
+     * @param UploadImage $uploadImage
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $manager){
+    public function new(Request $request, EntityManagerInterface $manager, UploadImage $uploadImage){
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
         if($this->handleForm($request, $form)){
-            $manager->persist($image);
+            $uploadImage->persistImage($image);
             $manager->flush();
             $this->addFlash(
                 'success',

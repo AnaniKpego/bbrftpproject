@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200405204409 extends AbstractMigration
+final class Version20200612104927 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20200405204409 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE room ADD guest_place_count INT NOT NULL, DROP number_of_places_for_children, DROP number_of_places_for_adult, DROP number_of_places_for_guess');
+        $this->addSql('ALTER TABLE image ADD path VARCHAR(255) DEFAULT NULL, DROP image, DROP title');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +30,6 @@ final class Version20200405204409 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE room ADD number_of_places_for_adult INT NOT NULL, ADD number_of_places_for_guess INT NOT NULL, CHANGE guest_place_count number_of_places_for_children INT NOT NULL');
+        $this->addSql('ALTER TABLE image ADD image VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD title VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, DROP path');
     }
 }

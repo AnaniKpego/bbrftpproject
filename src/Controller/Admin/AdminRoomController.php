@@ -3,10 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Controller\BaseController;
+use App\Entity\Image;
 use App\Entity\Room;
 use App\Entity\RoomEquipment;
 use App\Form\RoomType;
 use App\Repository\RoomRepository;
+use App\Service\UploadImage;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
@@ -29,6 +31,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminRoomController extends BaseController
 {
 
+    private $uploadImage;
+    private $projectDir;
+    private $manager;
+
+    public function __construct($projectDir,UploadImage $uploadImage, EntityManagerInterface $manager)
+    {
+        $this->uploadImage = $uploadImage;
+        $this->manager = $manager;
+        $this->projectDir = $projectDir;
+    }
+
     /**
      * @Route("s", name="s")
      * @param RoomRepository $roomRepository
@@ -41,19 +54,29 @@ class AdminRoomController extends BaseController
     }
 
 
-    private function createOrEditRoom(Room $room, Request $request, FormInterface $form, string $successMessage)
+    private function createOrEditRoom(Room $room, Request $request, FormInterface $form, string $successMessage, bool $editMode = false)
     {
         $manager = $this->getDoctrine()->getManager();
+        if($editMode){
+            foreach ($room->getImages() as $image){
+                $nImage = file_get_contents($this->projectDir."/public".$image->getPath());
+                $data = base64_encode($nImage);
+                $image->setDataURL("data:image/png;base64,".$data);
+            }
+            $form->setData($room);
+        }
         if ($this->handleForm($request, $form)) {
-            $mainImage = $room->getMainImage();
-            if ($mainImage !== null) {
-                $mainImage->setRoom($room);
-                $manager->persist($mainImage);
+            if($editMode){
+                $images = $manager->getRepository(Image::class)->findBy(['room'=>$room]);
+                foreach ($images as $image){
+                    $image->setRoom(null);
+                    $manager->persist($image);
+                }
             }
 
-            foreach ($room->getSecondaryImages() as $secondaryImage) {
-                $secondaryImage->setRoom($room);
-                $manager->persist($secondaryImage);
+            foreach ($room->getImages() as $image) {
+                $image->setRoom($room);
+                $this->uploadImage->persistImage($image);
             }
 
             foreach ($room->getEquipments() as $equipment){
@@ -100,11 +123,13 @@ class AdminRoomController extends BaseController
     public function edit(Room $room, Request $request)
     {
         $form = $this->createForm(RoomType::class, $room);
-        if ($this->createOrEditRoom($room, $request, $form,"La chambre a bien été modifiée!")) {
+
+        if ($this->createOrEditRoom($room, $request, $form,"La chambre a bien été modifiée!",true)) {
             return $this->redirectToRoute("app_bbr_admin_rooms");
         }
 
         return $this->render("admin/room/edit.html.twig", [
+            "room"=>$room,
             "form" => $form->createView()
         ]);
     }
@@ -114,11 +139,14 @@ class AdminRoomController extends BaseController
      * @param Room $room
      * @param EntityManagerInterface $manager
      * @return RedirectResponse
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function delete(Room $room, EntityManagerInterface $manager){
+        foreach ($room->getImages() as $image){
+            $image->setRoom(null);
+            $manager->persist($image);
+        }
         $manager->remove($room);
+
         $manager->flush();
 
         $this->addFlash(

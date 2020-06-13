@@ -61,11 +61,7 @@ class RoomType extends AbstractType
                     'class' => 'form-checkbox',
                 ]
             ])
-            ->add('mainImage',ImageType::class,[
-                'label'=>"Image principale",
-
-            ])
-            ->add('secondaryImages', CollectionType::class,[
+            ->add('images', CollectionType::class,[
                 'entry_type' => ImageType::class,
                 'allow_add' => true,
                 'allow_delete' => true,

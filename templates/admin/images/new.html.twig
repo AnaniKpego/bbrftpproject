@@ -1,5 +1,5 @@
 {% extends 'admin/layout/base.html.twig' %}
-{% block title %}{{ parent()}} Accueil{% endblock %}
+{% block title %}{{ parent() }} Accueil{% endblock %}
 {% block body %}
     <div class="container col-md-10 justify-content-center align-items-center">
         <div class="card shadow mb-4">
@@ -8,7 +8,8 @@
                 <div class="justify-content-center">
                     {{ include('admin/images/_form.html.twig') }}
 
-                    <a href="{{ path('app_bbr_admin_image_index') }}" class="float-lg-right btn-sm btn-primary">Retour</a>
+                    <a href="{{ path('app_bbr_admin_image_index') }}"
+                       class="float-lg-right btn-sm btn-primary">Retour</a>
                     <p class="preview"></p>
                 </div>
             </div>
@@ -16,11 +17,8 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script>
-        let input = document.querySelector('.vich-image input');
-        let imageTitle = document.querySelector("#image_title");
-        input.addEventListener("change",e=>{
-            imageTitle.value = input.files[0].name;
-        }, false)
-    </script>
+    <script src="{{ asset('/build/runtime.js') }}"></script>
+    <script src="{{ asset('/build/vendors~app~app-upload-image.js') }}"></script>
+    <script src="{{ asset('/build/vendors~app-upload-image.js') }}"></script>
+    <script src="{{ asset('/build/app-upload-image.js') }}"></script>
 {% endblock %}

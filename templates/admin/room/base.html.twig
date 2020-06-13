@@ -1,0 +1,57 @@
+{% extends 'admin/layout/base.html.twig' %}
+{% block title %}BBr Administration Chambre{% endblock %}
+{% block body %}
+    <div class="container col-md-10 justify-content-center align-items-center">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h1 class="text-center">{% block page_header_title %}{% endblock %}</h1>
+                <div class="justify-content-center">
+                    {{ include('admin/room/_form.html.twig') }}
+                    <div class="d-inline-flex my-3">
+                        <a href="{{ path('app_bbr_admin_rooms') }}" class="btn btn-primary btn-sm mr-5">Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/build/runtime.js') }}"></script>
+    <script src="{{ asset('/build/vendors~app~app-upload-image.js') }}"></script>
+    <script src="{{ asset('/build/vendors~app-upload-image.js') }}"></script>
+    <script src="{{ asset('/build/app-upload-image.js') }}"></script>
+    <script>
+        $('#add-image').click(function () {
+            // Je récupère le numéro des futurs champs que je vais créer
+            const index = +$('#widgets-counter').val();
+
+            // Je récupère le prototype des entrées
+            const tmpl = $('#room_images').data('prototype').replace(/__name__/g, index);
+
+            // J'injecte ce code au sein de la div
+            $('#room_images').append(tmpl);
+
+            $('#widgets-counter').val(index + 1);
+
+            // Je gère le bouton supprimer
+            handleDeleteButtons();
+        });
+
+        function handleDeleteButtons() {
+            $('button[data-action="delete"]').click(function () {
+                const target = this.dataset.target;
+                $(target).remove();
+            });
+        }
+
+        function updateCounter() {
+            const count = +$('#room_images div.form-group').length;
+
+            $('#widgets-counter').val(count);
+        }
+
+        updateCounter();
+        handleDeleteButtons();
+    </script>
+{% endblock %}

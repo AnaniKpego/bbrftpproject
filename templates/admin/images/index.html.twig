@@ -16,8 +16,8 @@
                         {% for image in images %}
                             <div class="gallery-item filter-swimmingpool col-md-3">
                                 <figure class="gradient-overlay image-icon">
-                                    <a href="{{ vich_uploader_asset(image, 'imageFile') }}">
-                                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" class="img-fluid" alt="Image">
+                                    <a href="{{ image.path }}">
+                                        <img src="{{ image.path }}" class="img-fluid" alt="Image">
                                     </a>
                                     <figcaption>{{ image.legend }}</figcaption>
                                 </figure>
